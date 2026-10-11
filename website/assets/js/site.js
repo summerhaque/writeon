@@ -1,4 +1,4 @@
-/* Write On! site: the menu, the "start anywhere" marker, and a live Coach Sparkle. */
+/* Write On! site: the menu, the "start anywhere" marker, and a canned demo of Coach Sparkle. */
 (function () {
   'use strict';
 
@@ -10,12 +10,12 @@
   var toggle = document.querySelector('[data-nav-toggle]');
 
   function setMenu(open) {
-    nav.toggleAttribute('data-open', open);
+    nav.classList.toggle('open', open);
     toggle.setAttribute('aria-expanded', String(open));
   }
 
   toggle.addEventListener('click', function () {
-    setMenu(!nav.hasAttribute('data-open'));
+    setMenu(!nav.classList.contains('open'));
   });
   nav.querySelectorAll('.nav-links a').forEach(function (link) {
     link.addEventListener('click', function () { setMenu(false); });
@@ -24,7 +24,8 @@
     if (event.key === 'Escape') setMenu(false);
   });
 
-  function onScroll() { nav.toggleAttribute('data-scrolled', window.scrollY > 8); }
+  // The hero is light, so the nav starts clear; once the page moves it gets a white surface.
+  function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 8); }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
@@ -179,7 +180,7 @@
     conversation += 1;
     state = { genre: genre, hints: 0, field: 0, said: [], busy: false };
     thread.innerHTML = '';
-    context.textContent = GENRE_NAMES[genre] + ' · Characters · Hints, never answers';
+    context.textContent = GENRE_NAMES[genre] + ' · Characters · Hints, not answers';
     addCoach({ text: data.genre[genre].opener }, false);
     setBusy(false);
   }

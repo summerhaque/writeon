@@ -1,4 +1,4 @@
-import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { useRef, useState } from 'react';
 import { KeyboardAvoidingView, Modal, Platform, Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -13,7 +13,7 @@ import { Text } from './text';
 
 export interface SheetAction {
   label: string;
-  icon: keyof typeof Feather.glyphMap;
+  icon: keyof typeof Ionicons.glyphMap;
   onPress: () => void;
   destructive?: boolean;
 }
@@ -71,7 +71,7 @@ export function ActionSheet({ visible, title, actions, onClose }: ActionSheetPro
           </Text>
         ) : null}
         {actions.map((action) => {
-          const color = action.destructive ? colors.accent : colors.ink;
+          const color = action.destructive ? colors.error : colors.ink;
           return (
             <Tappable
               key={action.label}
@@ -79,7 +79,7 @@ export function ActionSheet({ visible, title, actions, onClose }: ActionSheetPro
               pressScale={0.98}
               onPress={() => choose(action)}
               style={styles.action}>
-              <Feather name={action.icon} size={20} color={color} />
+              <Ionicons name={action.icon} size={20} color={color} />
               <Text variant="headline" style={{ color }}>
                 {action.label}
               </Text>

@@ -2,12 +2,13 @@ import type { SampleBook } from '@/domain/types';
 
 /**
  * The sample shelf: short finished books, written in the voice of young
- * authors, one per genre. The authors are fictional.
+ * authors. The authors and their books are fictional.
  */
 export const SAMPLE_BOOKS: SampleBook[] = [
   {
     id: 'the-door-in-the-crooked-oak',
     title: 'The Door in the Crooked Oak',
+    blurb: 'A tiny door in an old tree trades lost things for a price.',
     genre: 'fantasy',
     author: {
       name: 'Noor',
@@ -15,7 +16,7 @@ export const SAMPLE_BOOKS: SampleBook[] = [
       about:
         'Noor is 11 and lives with her parents, two little brothers and her Nani, who tells the best stories in the family. She writes in a green notebook that she is not allowed to bring to the dinner table. This is her first book.',
     },
-    cover: { template: 'plate', color: 'moss', plateId: 'forest-door' },
+    cover: { template: 'plate', color: 'violet', plateId: 'forest-door' },
     dedication: 'For Nani, who tells it better every time.',
     chapters: [
       {
@@ -67,6 +68,7 @@ export const SAMPLE_BOOKS: SampleBook[] = [
   {
     id: 'robots-dont-have-favorites',
     title: 'Robots Don’t Have Favorites',
+    blurb: 'A cleaning robot on Mars guides a lost girl home through a dust storm.',
     genre: 'scifi',
     author: {
       name: 'Mateo',
@@ -74,7 +76,7 @@ export const SAMPLE_BOOKS: SampleBook[] = [
       about:
         'Mateo is 12 and wants to be the first person to play the trumpet on Mars. He lives with his mom, his abuela and a very old cat named Rocket. He wrote most of this book under a blanket with a flashlight.',
     },
-    cover: { template: 'band', color: 'ink', plateId: 'red-planet' },
+    cover: { template: 'band', color: 'teal', plateId: 'red-planet' },
     dedication: 'For Abuela, who says I can go to Mars if I call every Sunday.',
     chapters: [
       {
@@ -125,6 +127,7 @@ export const SAMPLE_BOOKS: SampleBook[] = [
   {
     id: 'the-case-of-the-blinking-window',
     title: 'The Case of the Blinking Window',
+    blurb: 'A window across the street keeps blinking. Someone is trying to talk.',
     genre: 'mystery',
     author: {
       name: 'Hana',
@@ -132,7 +135,7 @@ export const SAMPLE_BOOKS: SampleBook[] = [
       about:
         'Hana is 10 and has solved four mysteries, including the Case of the Missing Left Shoe. She lives on the fourth floor of an apartment building, which is good for watching things. She is learning Morse code.',
     },
-    cover: { template: 'classic', color: 'plum', plateId: 'old-house' },
+    cover: { template: 'classic', color: 'indigo', plateId: 'old-house' },
     dedication: 'For my little brother, who is a much better assistant than Arlo.',
     chapters: [
       {
@@ -182,6 +185,7 @@ export const SAMPLE_BOOKS: SampleBook[] = [
   {
     id: 'the-leaning-tower-of-cake',
     title: 'The Leaning Tower of Cake',
+    blurb: 'Seven layers, a box of chopsticks, and one very wobbly birthday.',
     genre: 'comedy',
     author: {
       name: 'Kofi',
@@ -189,7 +193,7 @@ export const SAMPLE_BOOKS: SampleBook[] = [
       about:
         'Kofi is 9 and has two sisters, one dog and zero cakes left. He likes baking, drawing sharks and telling jokes at dinner. This is his first book, but it is not his last.',
     },
-    cover: { template: 'plate', color: 'vermilion', plateId: 'birthday-cake' },
+    cover: { template: 'plate', color: 'amber', plateId: 'birthday-cake' },
     dedication: 'For my sisters, who ate the evidence.',
     chapters: [
       {
@@ -237,6 +241,7 @@ export const SAMPLE_BOOKS: SampleBook[] = [
   {
     id: 'the-word-for-kite',
     title: 'The Word for Kite',
+    blurb: 'The new girl’s word for kite also means parrot. That’s where it starts.',
     genre: 'friendship',
     author: {
       name: 'Ines',
@@ -244,7 +249,7 @@ export const SAMPLE_BOOKS: SampleBook[] = [
       about:
         'Ines is 13 and spends her summers at her grandparents’ house in Porto. She has flown eleven kites and lost four of them to trees. She is already writing her next book, which also has wind in it.',
     },
-    cover: { template: 'minimal', color: 'ochre', plateId: 'kite-hill' },
+    cover: { template: 'minimal', color: 'rose', plateId: 'kite-hill' },
     dedication: 'For Avô Zé, who taught me to let the string out slowly.',
     chapters: [
       {
@@ -289,6 +294,58 @@ export const SAMPLE_BOOKS: SampleBook[] = [
           'I know forty-one words of Portuguese now. Most of them are about wind.',
         plateId: 'kite-hill',
         caption: 'Two kites over Holloway Hill. One of them is a parrot.',
+      },
+    ],
+  },
+  {
+    id: 'my-brother-is-a-robot-probably',
+    title: 'My Brother Is a Robot (Probably)',
+    blurb: 'Leo never sleeps, never sneezes, and charges his watch at night. Evidence.',
+    genre: 'scifi',
+    author: {
+      name: 'Rafi',
+      age: 10,
+      about:
+        'Rafi is 10 and has one big brother, who says he is definitely not a robot. Rafi likes science fairs, spicy chips and writing in the bathtub, which is why some pages are wavy.',
+    },
+    cover: { template: 'classic', color: 'blue', plateId: 'rocket' },
+    dedication: 'For Leo. Sorry about the screwdriver.',
+    chapters: [
+      {
+        title: 'The Evidence',
+        body:
+          'I started the notebook on a Tuesday. On the first page I wrote: THINGS MY BROTHER DOES THAT HUMANS DON’T.\n\n' +
+          'Number one. Leo never sleeps. I know because I tried to stay up to see him sleep and I fell asleep first, which is suspicious.\n\n' +
+          'Number two. He has never sneezed. Not once. Mom says that can’t be true, but Mom also says broccoli is a treat.\n\n' +
+          'Number three. Every night he plugs his watch into the wall next to his bed. He says it’s just a watch. That is exactly what a robot would say.\n\n' +
+          'Number four. He knows every answer on the quiz show before the people on TV. Every single one. Even the one about frogs.\n\n' +
+          'I showed the notebook to my friend Dev at lunch. Dev read it twice. Then he said, “You need proof.”\n\n' +
+          '“What kind of proof?”\n\n' +
+          '“Robots have a switch,” Dev said. “Somewhere behind the ear. Everybody knows that.”',
+      },
+      {
+        title: 'Operation Ear',
+        body:
+          'Leo was doing homework at the kitchen table. I walked up behind him very normally, like a person who was not checking for switches.\n\n' +
+          '“Why are you breathing like that?” he said without turning around.\n\n' +
+          'Robots can hear breathing. I wrote that down later.\n\n' +
+          'I reached for his left ear. He moved his head. I reached for his right ear. He moved it again. It was like trying to catch a fish with a spoon.\n\n' +
+          '“Rafi,” he said. “What are you doing?”\n\n' +
+          'So I told him everything. The notebook, the watch, the frogs. I thought he would be mad. Instead he went very quiet and looked at the floor.\n\n' +
+          '“Okay,” he whispered. “You found out. Do you want to see where my battery goes?”\n\n' +
+          'My whole body went cold, like when you open the freezer in your socks.',
+        plateId: 'rocket',
+        caption: 'Leo’s secret launch pad, in my imagination.',
+      },
+      {
+        title: 'The Battery',
+        body:
+          'He took me to his room and opened his closet. My heart was going so fast I could hear it in my ears.\n\n' +
+          'Inside was a box. Inside the box was a robot. A real one, about as tall as a cereal box, with wheels and two bottle caps for eyes.\n\n' +
+          '“I’ve been building it for the science fair,” Leo said. “For you. It was supposed to be a surprise for your birthday.”\n\n' +
+          'The robot rolled forward and beeped three times. Leo said that means hello.\n\n' +
+          'So my brother is not a robot. Probably. He still has not sneezed, and I still have the notebook.\n\n' +
+          'But now I have a robot too. His name is Number Five, after the page in my notebook where I ran out of evidence.',
       },
     ],
   },

@@ -1,9 +1,10 @@
 import {
-  Fraunces_400Regular,
-  Fraunces_400Regular_Italic,
-  Fraunces_600SemiBold,
-} from '@expo-google-fonts/fraunces';
-import { SourceSans3_600SemiBold } from '@expo-google-fonts/source-sans-3';
+  PlusJakartaSans_400Regular,
+  PlusJakartaSans_400Regular_Italic,
+  PlusJakartaSans_600SemiBold,
+  PlusJakartaSans_700Bold,
+  PlusJakartaSans_800ExtraBold,
+} from '@expo-google-fonts/plus-jakarta-sans';
 import { Asset } from 'expo-asset';
 import { Directory, File, Paths } from 'expo-file-system';
 import * as Print from 'expo-print';
@@ -13,21 +14,23 @@ import type { Book } from '@/domain/book';
 
 import { bookHtml, PAGE } from './book-html';
 
+const FAMILY = 'Plus Jakarta Sans';
 const FONTS = [
-  { family: 'Fraunces', weight: 400, style: 'normal', module: Fraunces_400Regular },
-  { family: 'Fraunces', weight: 400, style: 'italic', module: Fraunces_400Regular_Italic },
-  { family: 'Fraunces', weight: 600, style: 'normal', module: Fraunces_600SemiBold },
-  { family: 'Source Sans 3', weight: 600, style: 'normal', module: SourceSans3_600SemiBold },
+  { weight: 400, style: 'normal', module: PlusJakartaSans_400Regular },
+  { weight: 400, style: 'italic', module: PlusJakartaSans_400Regular_Italic },
+  { weight: 600, style: 'normal', module: PlusJakartaSans_600SemiBold },
+  { weight: 700, style: 'normal', module: PlusJakartaSans_700Bold },
+  { weight: 800, style: 'normal', module: PlusJakartaSans_800ExtraBold },
 ];
 
 /** The book's typefaces, embedded so the PDF looks the same on every device. */
 async function fontFaces(): Promise<string> {
   const faces = await Promise.all(
-    FONTS.map(async ({ family, weight, style, module }) => {
+    FONTS.map(async ({ weight, style, module }) => {
       const [asset] = await Asset.loadAsync(module);
-      if (!asset.localUri) throw new Error(`Font not available: ${family}`);
+      if (!asset.localUri) throw new Error(`Font not available: ${FAMILY} ${weight}`);
       const data = await new File(asset.localUri).base64();
-      return `@font-face { font-family: '${family}'; font-weight: ${weight}; font-style: ${style}; src: url(data:font/ttf;base64,${data}) format('truetype'); }`;
+      return `@font-face { font-family: '${FAMILY}'; font-weight: ${weight}; font-style: ${style}; src: url(data:font/ttf;base64,${data}) format('truetype'); }`;
     }),
   );
   return faces.join('\n');
@@ -61,7 +64,7 @@ function fileName(title: string) {
 
 /** Typesets the book and saves it as a PDF. Returns the file's URI. */
 export async function exportBook(book: Book): Promise<string> {
-  // A missing font shouldn't stop a book from being made. It falls back to Georgia.
+  // A missing font shouldn't stop a book from being made. It falls back to Helvetica.
   const fonts = await fontFaces().catch((error) => {
     console.warn('Publishing without embedded fonts', error);
     return '';

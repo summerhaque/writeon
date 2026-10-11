@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "scheme": "writeon",
     "userInterfaceStyle": "automatic",
-    "backgroundColor": "#FAF7F1",
+    "backgroundColor": "#F4F9FD",
     "ios": {
       "bundleIdentifier": "app.writeon.studio",
       "supportsTablet": true,
@@ -20,7 +20,7 @@
       "package": "app.writeon.studio",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#1B1E2B"
+        "backgroundColor": "#12354F"
       },
       "predictiveBackGestureEnabled": false
     },
@@ -36,10 +36,10 @@
           "image": "./assets/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#FAF7F1",
+          "backgroundColor": "#F4F9FD",
           "dark": {
             "image": "./assets/splash-icon-dark.png",
-            "backgroundColor": "#111319"
+            "backgroundColor": "#0D1B2A"
           }
         }
       ],

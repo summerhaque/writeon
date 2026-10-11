@@ -11,9 +11,9 @@ import Animated, {
 
 import { useTheme } from '@/theme/use-theme';
 
-const LINES: DimensionValue[] = ['92%', '74%', '48%'];
+const LINES: DimensionValue[] = ['76%', '96%', '56%'];
 
-/** Ink settling on the page: the coach is thinking. */
+/** The logo's three written lines, drawing themselves: the coach is thinking. */
 export function Thinking() {
   return (
     <View style={styles.lines} accessibilityLabel="Coach Sparkle is thinking" accessibilityRole="progressbar">
@@ -36,7 +36,7 @@ function Line({ width, delay }: { width: DimensionValue; delay: number }) {
   }, [delay, glow]);
 
   const style = useAnimatedStyle(() => ({ opacity: glow.value }));
-  return <Animated.View style={[styles.line, { width, backgroundColor: colors.fillStrong }, style]} />;
+  return <Animated.View style={[styles.line, { width, backgroundColor: colors.sky }, style]} />;
 }
 
 const styles = StyleSheet.create({

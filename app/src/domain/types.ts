@@ -42,7 +42,7 @@ export type PlateId =
   | 'snowy-peak';
 
 export type CoverTemplate = 'classic' | 'band' | 'plate' | 'minimal';
-export type CoverColor = 'ink' | 'vermilion' | 'sea' | 'moss' | 'ochre' | 'plum';
+export type CoverColor = 'navy' | 'blue' | 'violet' | 'teal' | 'indigo' | 'amber' | 'rose';
 
 export type CharacterRole = 'protagonist' | 'antagonist' | 'sidekick' | 'other';
 
@@ -221,6 +221,8 @@ export interface Lesson {
 export interface SampleBook {
   id: string;
   title: string;
+  /** One line for the shelf. */
+  blurb: string;
   genre: Genre;
   author: { name: string; age: number; about: string };
   cover: { template: CoverTemplate; color: CoverColor; plateId: PlateId | null };

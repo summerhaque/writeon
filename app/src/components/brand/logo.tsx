@@ -1,59 +1,136 @@
-import Svg, { G, Path } from 'react-native-svg';
+import { StyleSheet, View } from 'react-native';
+import Svg, { G, Path, Rect } from 'react-native-svg';
 
+import { Text } from '@/components/ui/text';
+import { fontFamily } from '@/theme/typography';
 import { useTheme } from '@/theme/use-theme';
 
-import { WORDMARK_PATH, WORDMARK_VIEWBOX, WORDMARK_ASPECT } from './wordmark-path';
+/**
+ * The Write On! mark: three written lines, and a pencil finishing the middle one.
+ * Geometry from brand/writeon-mark.svg (standard) and brand/writeon-mark-icon.svg
+ * (the icon cut, with shorter lines and thicker bars, for anything under 48pt).
+ */
+const CUTS = {
+  standard: {
+    viewBox: { x: 304.7, y: 150.7, width: 556.6, height: 255.6 },
+    lines: [
+      { y: 219, width: 230 },
+      { y: 287, width: 300 },
+      { y: 355, width: 170 },
+    ],
+    bar: 26,
+    pencil: { x: 620, y: 352, tip: 24.99, wood: 73.5, band: 196, eraser: 209.475, end: 236 },
+  },
+  icon: {
+    viewBox: { x: 306.6, y: 164.6, width: 515.9, height: 265.9 },
+    lines: [
+      { y: 213, width: 205 },
+      { y: 291, width: 255 },
+      { y: 369, width: 145 },
+    ],
+    bar: 38,
+    pencil: { x: 590, y: 358, tip: 23.97, wood: 70.5, band: 188, eraser: 200.925, end: 226 },
+  },
+} as const;
 
-const FEATHER_OUTLINE =
-  'M118,22 L118,336 C118,368 98,390 66,410 C34,390 22,368 22,336 L22,172 C22,94 62,46 118,22 Z';
+const INKS = {
+  light: {
+    lines: '#97CDF4',
+    graphite: '#12354F',
+    woodLight: '#F6E7CE',
+    woodShade: '#E7D2AF',
+    bodyLight: '#C4E3FA',
+    body: '#97CDF4',
+    bodyShade: '#3E8FD0',
+    band: '#12354F',
+    eraser: '#F2A65A',
+  },
+  dark: {
+    lines: '#BFE0FA',
+    graphite: '#FFFFFF',
+    woodLight: '#FBF1DE',
+    woodShade: '#EDDCBC',
+    bodyLight: '#E4F2FD',
+    body: '#BFE0FA',
+    bodyShade: '#7FB8E8',
+    band: '#FFFFFF',
+    eraser: '#F2A65A',
+  },
+} as const;
 
-/** The feather mark from brand/writeon-logo-*.svg. The nib is always vermilion. */
-export function FeatherMark({ height = 64 }: { height?: number }) {
-  const { scheme, colors } = useTheme();
-  const stroke = colors.ink;
+type Cut = keyof typeof CUTS;
+
+function Mark({ height, cut }: { height: number; cut: Cut }) {
+  const { scheme } = useTheme();
+  const { viewBox, lines, bar, pencil: p } = CUTS[cut];
+  const ink = INKS[scheme];
+  const half = 30;
+  const tipHalf = 10.2;
+
   return (
     <Svg
-      width={(height * 124) / 522}
+      width={(height * viewBox.width) / viewBox.height}
       height={height}
-      viewBox="0 0 124 522"
-      accessibilityRole="image"
-      accessibilityLabel="Write On!">
-      <G transform="translate(-8 -8)" fill="none" strokeLinecap="round">
-        <Path d={FEATHER_OUTLINE} fill={scheme === 'dark' ? 'none' : colors.surface} />
-        <Path d="M22,184 C46,150 80,130 118,120" stroke={stroke} strokeWidth={14} />
-        <Path d="M22,288 C46,254 80,234 118,224" stroke={stroke} strokeWidth={14} />
-        <Path d="M66,396 C66,364 72,336 90,318 C100,308 109,304 118,302" stroke={stroke} strokeWidth={10.9} />
+      viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
+      accessibilityElementsHidden
+      importantForAccessibility="no">
+      {lines.map((line) => (
+        <Rect key={line.y} x={330} y={line.y} width={line.width} height={bar} rx={bar / 2} fill={ink.lines} />
+      ))}
+      <G transform={`translate(${p.x} ${p.y}) rotate(-38)`}>
+        <Path d={`M0 0 L${p.tip} ${-tipHalf} L${p.tip} ${tipHalf} Z`} fill={ink.graphite} />
         <Path
-          d={FEATHER_OUTLINE}
-          stroke={stroke}
-          strokeWidth={14}
-          strokeLinejoin="miter"
-          strokeMiterlimit={6}
+          d={`M${p.tip} ${-tipHalf} L${p.wood} ${-half} L${p.wood} 0 L${p.tip} 0 Z`}
+          fill={ink.woodLight}
         />
-        <Path d="M66,410 L66,466" stroke={stroke} strokeWidth={14} strokeLinecap="butt" />
+        <Path d={`M${p.tip} ${tipHalf} L${p.wood} ${half} L${p.wood} 0 L${p.tip} 0 Z`} fill={ink.woodShade} />
+        <Path d={`M${p.wood} ${-half} H${p.band} V-5.4 H${p.wood} Z`} fill={ink.bodyLight} />
+        <Path d={`M${p.wood} -5.4 H${p.band} V12.6 H${p.wood} Z`} fill={ink.body} />
+        <Path d={`M${p.wood} 12.6 H${p.band} V${half} H${p.wood} Z`} fill={ink.bodyShade} />
+        <Path d={`M${p.band} ${-half} H${p.eraser} V${half} H${p.band} Z`} fill={ink.band} />
         <Path
-          d="M54,476 L78,476 L66,520 Z"
-          fill={colors.accent}
-          stroke={colors.accent}
-          strokeWidth={2.5}
-          strokeLinejoin="round"
+          d={`M${p.eraser} ${-half} H${p.end} A9 9 0 0 1 ${p.end} ${half} H${p.eraser} Z`}
+          fill={ink.eraser}
         />
       </G>
     </Svg>
   );
 }
 
-/** The “Write On!” wordmark, drawn from the brand outlines rather than typeset. */
-export function Wordmark({ width = 180, color }: { width?: number; color?: string }) {
-  const { colors } = useTheme();
+interface LogoProps {
+  /** `mark` and `icon` are the drawing alone; `lockup` and `stacked` add the name. */
+  variant?: 'mark' | 'icon' | 'lockup' | 'stacked';
+  /** Height of the mark, in points. */
+  height?: number;
+}
+
+export function Logo({ variant = 'lockup', height = 40 }: LogoProps) {
+  // Under 48pt the standard cut's thin lines blur, so small marks use the icon cut.
+  const cut: Cut = variant === 'icon' || height < 48 ? 'icon' : 'standard';
+  const mark = <Mark height={height} cut={cut} />;
+  if (variant === 'mark' || variant === 'icon') {
+    return (
+      <View accessible accessibilityRole="image" accessibilityLabel="Write On!">
+        {mark}
+      </View>
+    );
+  }
+
+  const nameSize = variant === 'stacked' ? height * 0.42 : height * 0.62;
   return (
-    <Svg
-      width={width}
-      height={width / WORDMARK_ASPECT}
-      viewBox={WORDMARK_VIEWBOX}
+    <View
+      accessible
       accessibilityRole="image"
-      accessibilityLabel="Write On!">
-      <Path d={WORDMARK_PATH} fill={color ?? colors.ink} />
-    </Svg>
+      accessibilityLabel="Write On!"
+      style={variant === 'stacked' ? styles.stacked : styles.lockup}>
+      {mark}
+      <Text style={[styles.name, { fontSize: nameSize, letterSpacing: -nameSize * 0.02 }]}>Write On!</Text>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  lockup: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  stacked: { alignItems: 'center', gap: 6 },
+  name: { fontFamily: fontFamily.extrabold },
+});

@@ -9,18 +9,11 @@ const MARGIN = { top: 58, side: 54, bottom: 62 } as const;
 const escape = (text: string) =>
   text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-const FEATHER = `<svg viewBox="0 0 124 522" width="14" height="59" aria-hidden="true"><g transform="translate(-8 -8)" fill="none" stroke-linecap="round">
-<path d="M118,22 L118,336 C118,368 98,390 66,410 C34,390 22,368 22,336 L22,172 C22,94 62,46 118,22 Z" fill="${print.paper}"/>
-<path d="M22,184 C46,150 80,130 118,120" stroke="${print.ink}" stroke-width="14"/>
-<path d="M22,288 C46,254 80,234 118,224" stroke="${print.ink}" stroke-width="14"/>
-<path d="M66,396 C66,364 72,336 90,318 C100,308 109,304 118,302" stroke="${print.ink}" stroke-width="10.9"/>
-<path d="M118,22 L118,336 C118,368 98,390 66,410 C34,390 22,368 22,336 L22,172 C22,94 62,46 118,22 Z" stroke="${print.ink}" stroke-width="14" stroke-linejoin="miter" stroke-miterlimit="6"/>
-<path d="M66,410 L66,466" stroke="${print.ink}" stroke-width="14" stroke-linecap="butt"/>
-<path d="M54,476 L78,476 L66,520 Z" fill="${print.accent}" stroke="${print.accent}" stroke-width="2.5" stroke-linejoin="round"/>
-</g></svg>`;
+/** The standard mark from brand/writeon-mark.svg, for the title page and the colophon. */
+const MARK = `<svg class="mark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="304.7 150.7 556.6 255.6"><g><rect x="330" y="219" width="230" height="26" rx="13" fill="#97CDF4"/><rect x="330" y="287" width="300" height="26" rx="13" fill="#97CDF4"/><rect x="330" y="355" width="170" height="26" rx="13" fill="#97CDF4"/><g transform="translate(620,352) rotate(-38) scale(1.0)"><path d="M0 0 L24.99 -10.2 L24.99 10.2 Z" fill="#12354F"/><path d="M24.99 -10.2 L73.5 -30 L73.5 0 L24.99 0 Z" fill="#F6E7CE"/><path d="M24.99 10.2 L73.5 30 L73.5 0 L24.99 0 Z" fill="#E7D2AF"/><path d="M73.5 -30 L196.0 -30 L196.0 -5.4 L73.5 -5.4 Z" fill="#C4E3FA"/><path d="M73.5 -5.4 L196.0 -5.4 L196.0 12.6 L73.5 12.6 Z" fill="#97CDF4"/><path d="M73.5 12.6 L196.0 12.6 L196.0 30 L73.5 30 Z" fill="#3E8FD0"/><path d="M196.0 -30 L209.47 -30 L209.47 30 L196.0 30 Z" fill="#12354F"/><path d="M209.47 -30 L236.0 -30 A 9.0 9.0 0 0 1 236.0 30 L209.47 30 Z" fill="#F2A65A"/></g></g></svg>`;
 
 export interface BookAssets {
-  /** @font-face rules with embedded fonts. Empty falls back to Georgia. */
+  /** @font-face rules with embedded fonts. Empty falls back to Helvetica. */
   fontFaces: string;
   /** Photographed drawings as data URIs, keyed by picture id. */
   photos: Record<string, string>;
@@ -97,34 +90,34 @@ ${assets.fontFaces}
 @page { size: ${PAGE.width}px ${PAGE.height}px; margin: 0; }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; background: ${print.paper}; }
-body { font-family: 'Fraunces', Georgia, serif; color: ${print.ink}; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif; color: ${print.ink}; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 .page { width: ${PAGE.width}px; height: ${PAGE.height}px; position: relative; overflow: hidden; page-break-after: always; break-after: page; }
-.sans { font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif; }
 
-.cover .c-title { font-weight: 600; font-size: 40px; line-height: 1.12; letter-spacing: -0.4px; }
-.cover .c-title.long { font-size: 31px; }
-.cover .c-author { font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 2.2px; text-transform: uppercase; }
-.classic { padding: 22px; color: ${print.paper}; }
-.classic .frame { height: 100%; border: 1px solid rgba(250,247,241,0.55); display: flex; flex-direction: column; align-items: center; padding: 40px 34px; text-align: center; }
+.cover .c-title { font-weight: 800; font-size: 38px; line-height: 1.12; letter-spacing: -0.8px; }
+.cover .c-title.long { font-size: 30px; }
+.cover .c-author { font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+.classic { padding: 22px; color: ${print.onCover}; }
+.classic .frame { height: 100%; border: 1px solid rgba(255,255,255,0.5); border-radius: 14px; display: flex; flex-direction: column; align-items: center; padding: 40px 34px; text-align: center; }
 .classic .c-mid { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-.classic .c-rule { width: 56px; height: 1.5px; background: rgba(250,247,241,0.7); margin-top: 26px; }
-.band { background: ${print.paperDeep}; display: flex; flex-direction: column; justify-content: center; }
-.band .band-fill { color: ${print.paper}; padding: 48px 40px; text-align: center; }
+.classic .c-rule { width: 56px; height: 3px; border-radius: 2px; background: ${print.accent}; margin-top: 26px; }
+.band { background: ${print.paperTint}; display: flex; flex-direction: column; justify-content: center; }
+.band .band-fill { color: ${print.onCover}; padding: 48px 40px; text-align: center; }
 .band .c-author { position: absolute; bottom: 46px; left: 0; right: 0; text-align: center; color: ${print.ink}; }
-.plate { background: ${print.paperDeep}; }
+.plate { background: ${print.paperTint}; }
 .plate .plate-art svg { display: block; width: 100%; height: ${PAGE.width * 0.75}px; }
 .plate .plate-rule { height: 11px; }
 .plate .plate-text { padding: 38px 40px; display: flex; flex-direction: column; justify-content: space-between; height: ${PAGE.height - PAGE.width * 0.75 - 11}px; }
 .plate .c-author { color: ${print.muted}; }
-.minimal { color: ${print.paper}; padding: 48px 40px; display: flex; flex-direction: column; justify-content: space-between; }
-.minimal .c-title { font-size: 50px; line-height: 1.06; }
-.minimal .c-title.long { font-size: 38px; }
-.minimal .c-author { opacity: 0.8; }
+.minimal { color: ${print.onCover}; padding: 48px 40px; display: flex; flex-direction: column; justify-content: space-between; }
+.minimal .c-title { font-size: 48px; line-height: 1.06; }
+.minimal .c-title.long { font-size: 36px; }
+.minimal .c-author { opacity: 0.82; }
 
+.mark { display: block; width: 72px; height: auto; }
 .title-page { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 ${MARGIN.side}px; }
-.title-page h1 { font-weight: 600; font-size: 30px; line-height: 1.18; margin: 0 0 18px; letter-spacing: -0.3px; }
-.title-page .by { font-style: italic; font-size: 14px; color: ${print.muted}; }
-.title-page .imprint { position: absolute; bottom: 52px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 9px; letter-spacing: 1.8px; text-transform: uppercase; color: ${print.muted}; }
+.title-page h1 { font-weight: 800; font-size: 30px; line-height: 1.18; margin: 0 0 16px; letter-spacing: -0.6px; }
+.title-page .by { font-size: 14px; color: ${print.muted}; }
+.title-page .imprint { position: absolute; bottom: 50px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; font-weight: 700; font-size: 10px; letter-spacing: 1px; color: ${print.ink}; }
 .dedication { display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 70px; font-style: italic; font-size: 15px; line-height: 1.6; color: ${print.ink}; }
 
 .flow { page-break-before: always; break-before: page; }
@@ -134,27 +127,27 @@ body { font-family: 'Fraunces', Georgia, serif; color: ${print.ink}; -webkit-pri
 .flow .pad-bottom { height: ${MARGIN.bottom}px; }
 .chapter { padding: 0 ${MARGIN.side}px !important; }
 .ch-head { text-align: center; margin: 46px 0 30px; }
-.ch-num { font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif; font-weight: 600; font-size: 9.5px; letter-spacing: 2.4px; text-transform: uppercase; color: ${print.accent}; }
-.ch-head h2 { font-weight: 600; font-size: 22px; line-height: 1.25; margin: 10px 0 0; }
-p { font-size: 12.5px; line-height: 1.62; margin: 0; text-indent: 1.5em; orphans: 2; widows: 2; hyphens: auto; -webkit-hyphens: auto; text-align: justify; }
+.ch-num { font-weight: 700; font-size: 9.5px; letter-spacing: 2.4px; text-transform: uppercase; color: ${print.primary}; }
+.ch-head h2 { font-weight: 800; font-size: 21px; line-height: 1.25; margin: 10px 0 0; letter-spacing: -0.3px; }
+p { font-size: 12px; line-height: 1.7; margin: 0; text-indent: 1.5em; orphans: 2; widows: 2; hyphens: auto; -webkit-hyphens: auto; text-align: justify; }
 p.first { text-indent: 0; }
-p.first::first-letter { float: left; font-weight: 600; font-size: 44px; line-height: 0.9; padding: 4px 6px 0 0; }
+p.first::first-letter { float: left; font-weight: 800; font-size: 42px; line-height: 0.9; padding: 4px 6px 0 0; color: ${print.primary}; }
 figure { margin: 22px 0 6px; page-break-inside: avoid; break-inside: avoid; }
-figure .art { width: 100%; height: ${(PAGE.width - MARGIN.side * 2) * 0.75}px; border-radius: 4px; overflow: hidden; }
+figure .art { width: 100%; height: ${(PAGE.width - MARGIN.side * 2) * 0.75}px; border-radius: 10px; overflow: hidden; }
 figure .art svg, figure .art img { display: block; width: 100%; height: 100%; object-fit: cover; }
 figcaption { font-style: italic; font-size: 10.5px; line-height: 1.5; text-align: center; color: ${print.muted}; margin-top: 8px; }
 
 .about { padding: ${MARGIN.top + 60}px ${MARGIN.side + 6}px 0; }
-.about .label { font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif; font-weight: 600; font-size: 9.5px; letter-spacing: 2.4px; text-transform: uppercase; color: ${print.accent}; text-align: center; margin-bottom: 22px; }
+.about .label { font-weight: 700; font-size: 9.5px; letter-spacing: 2.4px; text-transform: uppercase; color: ${print.accentText}; text-align: center; margin-bottom: 22px; }
 .about .text { font-size: 13px; line-height: 1.7; text-align: center; }
-.colophon { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 64px; gap: 10px; text-align: center; font-size: 10px; line-height: 1.6; color: ${print.muted}; }
-.colophon .motto { font-style: italic; font-size: 12px; color: ${print.ink}; }
+.colophon { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 0 60px 64px; gap: 12px; text-align: center; font-size: 10px; line-height: 1.6; color: ${print.muted}; }
+.colophon .motto { font-weight: 600; font-size: 12px; line-height: 1.5; color: ${print.ink}; }
 </style></head><body>
 ${cover(book)}
 <section class="page title-page">
   <h1>${escape(book.title)}</h1>
   ${author ? `<div class="by">by ${escape(author)}</div>` : ''}
-  <div class="imprint sans">${FEATHER}<span>Write On!</span></div>
+  <div class="imprint">${MARK}<span>Write On!</span></div>
 </section>
 ${book.dedication ? `<section class="page dedication"><div>${escape(book.dedication)}</div></section>` : ''}
 ${book.chapters.map((c) => chapter(c, assets)).join('')}
@@ -164,9 +157,9 @@ ${
     : ''
 }
 <section class="page colophon" style="page-break-before: always; break-before: page; page-break-after: auto; break-after: auto;">
-  ${FEATHER}
-  <div class="motto">Everyone has a story worth telling.</div>
-  <div class="sans">Written${author ? ` by ${escape(author)}` : ''}. Made with Write On!<br>Published ${published}.</div>
+  ${MARK}
+  <div class="motto">Everyone has a story worth telling, and every voice deserves the chance to be heard.</div>
+  <div>Written${author ? ` by ${escape(author)}` : ''}. Made with Write On!<br>Published ${published}.</div>
 </section>
 </body></html>`;
 }

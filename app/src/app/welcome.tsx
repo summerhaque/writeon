@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 
-import { FeatherMark, Wordmark } from '@/components/brand/logo';
+import { Logo } from '@/components/brand/logo';
 import { Button } from '@/components/ui/button';
 import { Field } from '@/components/ui/field';
 import { Screen } from '@/components/ui/screen';
@@ -28,22 +28,22 @@ function Hello({ onStart }: { onStart: () => void }) {
       scroll={false}
       footer={
         <View style={styles.footer}>
-          <Button label="Start writing" onPress={onStart} block />
+          <Button label="Start a story" onPress={onStart} block />
           <Text variant="footnote" tone="muted" align="center">
-            No account, no ads. Your stories stay on this device.
+            Demo build. Your stories are saved on this device.
           </Text>
         </View>
       }>
       <View style={styles.hello}>
         <Animated.View entering={FadeIn.duration(700)} style={styles.brand}>
-          <FeatherMark height={96} />
-          <Wordmark width={200} />
+          <Logo variant="stacked" height={112} />
         </Animated.View>
         <Animated.View entering={FadeInDown.duration(600).delay(250)} style={styles.copy}>
-          <Text variant="display">Find your voice.</Text>
-          <Text variant="body" tone="muted" style={styles.lede}>
-            Write On! walks you from your first idea to a finished book. Your coach asks good questions. It
-            never writes a word for you.
+          <Text variant="display" align="center">
+            Find your voice.
+          </Text>
+          <Text variant="body" tone="muted" align="center" style={styles.lede}>
+            Everyone has a story worth telling, and every voice deserves the chance to be heard.
           </Text>
         </Animated.View>
       </View>
@@ -104,9 +104,9 @@ function PenName({ onBack }: { onBack: () => void }) {
 
 const styles = StyleSheet.create({
   hello: { flex: 1, justifyContent: 'center', gap: space.xxl, paddingTop: space.xxl },
-  brand: { gap: space.lg },
-  copy: { gap: space.sm },
-  lede: { maxWidth: 340 },
+  brand: { alignItems: 'center' },
+  copy: { gap: space.sm, alignItems: 'center' },
+  lede: { maxWidth: 320 },
   footer: { gap: space.sm, paddingTop: space.xs },
   form: { gap: space.xl, paddingTop: space.sm },
   formIntro: { gap: space.xs },

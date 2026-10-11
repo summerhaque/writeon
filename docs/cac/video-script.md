@@ -1,5 +1,7 @@
 # Write On! · Demo video script
 
+> **Replace this with Summer's latest ~3-minute script once it's in hand.** This draft was written before the brand and copy revamp. Its facts are now corrected: the real app is built with React on Base44 and calls an AI model for the coach. The click path below follows the Expo demo build.
+
 **Length:** about 2:45. CAC requires 1 to 3 minutes, so don't go over.
 **Format:** a screen recording of the app, with Summer's voiceover. A few seconds of Summer on camera at the start and end is a nice touch, but optional.
 **Upload:** YouTube or Vimeo, set to **Public**.
@@ -21,9 +23,9 @@ The rules require the video to cover six things. Each is marked below where it h
 
 | Time | On screen | Voiceover (Summer) |
 |---|---|---|
-| 0:00 | Welcome screen: the feather, "Find your voice." | "Hi, I'm Summer Haque ①, and this is Write On! ②" |
+| 0:00 | Welcome screen: the Write On! logo, "Find your voice." | "Hi, I'm Summer Haque ①, and this is Write On! ②" |
 | 0:05 | Hold on the welcome screen. | "Write On! is a creative writing studio that takes young writers from their very first idea to a finished, published book, with a coach that gives hints, never answers ③. It's for kids about eight to thirteen, and the teachers and parents who help them write ④." |
-| 0:20 | Tap **Start writing**, type "Summer", tap **Open my notebook**. The desk appears. | "The hardest part of writing is starting. So let's start a new story." |
+| 0:20 | Tap **Start a story**, type "Summer", tap **Open my notebook**. The desk appears. | "The hardest part of writing is starting. So let's start a new story." |
 | 0:27 | Tap **New story** → **Fantasy** → "A character" → "Brave and bold" → "A short story". "Drawing your map…" | "I pick a kind of story and answer three quick questions…" |
 | 0:40 | The roadmap with nine stops, "Start here" on Characters. Scroll slowly. | "…and Write On! builds a roadmap for this story. It starts where my idea already is, with a character, and every stage gets a first prompt of its own." |
 | 0:52 | Close it. Open *The Tower of Fibs* from the desk. The Story Path appears. | "Here's a story I've already started. These are the nine stages of a story. Every one is open, in any order. You can start anywhere." |
@@ -36,7 +38,7 @@ The rules require the video to cover six things. Each is marked below where it h
 | 2:10 | **Publishing**: change the cover color, then tap **Publish my book**. Let the stamp land. | "Then you design a cover, and publish." |
 | 2:18 | The "Published." screen. Tap **Share your book** and show the PDF for a second. | "Write On! turns the story into a real PDF book, with a title page, chapters, pictures and an About the Author page." |
 | 2:26 | Tap **See it on your shelf**, then the **Progress** tab: the ledger and badges. | "It lands on your shelf next to sample books by other young writers, and you can see your progress: words, streaks and badges." |
-| 2:36 | Optional: Summer on camera. Otherwise, the welcome screen. | "I built Write On! in TypeScript with React Native and Expo, plus Expo Router, Reanimated, SVG drawing and Expo Print for the PDF books ⑤. **[Say what AI tools you used and how, to match your written disclosure.]** Everyone has a story worth telling. Thanks for watching." |
+| 2:36 | Optional: Summer on camera. Otherwise, the welcome screen. | "I built Write On! in React on Base44, an AI-assisted platform, with JavaScript and TypeScript. The coach calls an AI model with prompts I engineered to give hints, not answers, and the PDF books are made with jsPDF ⑤. **[Say what AI tools you used and how, to match your written disclosure.]** Everyone has a story worth telling, and every voice deserves the chance to be heard. Thanks for watching." |
 | 2:50 | End. | |
 
 ⑥ The app working is covered from 0:20 to 2:30.

@@ -116,7 +116,7 @@ function DoneRow({ story, stage, flush }: { story: Story; stage: StageId; flush:
       <View style={styles.done}>
         <Button
           label={`Mark ${name} done`}
-          icon="check"
+          icon="checkmark"
           variant="secondary"
           block
           onPress={() => {
@@ -143,7 +143,7 @@ function DoneRow({ story, stage, flush }: { story: Story; stage: StageId; flush:
       {next ? (
         <Button
           label={`Next: ${STAGE_BY_ID[next].name}`}
-          icon="arrow-right"
+          icon="arrow-forward"
           iconPosition="end"
           block
           onPress={() =>

@@ -1,9 +1,9 @@
-import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import type { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { haptics } from '@/lib/haptics';
-import { hairline, radius, space } from '@/theme/layout';
+import { hairline, radius, shadow, space } from '@/theme/layout';
 import { fontFamily } from '@/theme/typography';
 import { useTheme } from '@/theme/use-theme';
 
@@ -32,7 +32,7 @@ export function Chip({ label, selected = false, onPress }: ChipProps) {
         styles.chip,
         selected
           ? { backgroundColor: colors.primary, borderColor: colors.primary }
-          : { borderColor: colors.border, backgroundColor: colors.surface },
+          : { borderColor: colors.borderStrong, backgroundColor: colors.surface },
       ]}>
       <Text
         variant="footnote"
@@ -69,10 +69,10 @@ export function Option({ title, detail, selected = false, onPress, media }: Opti
       pressScale={0.985}
       style={[
         styles.option,
+        shadow.sm,
         {
-          backgroundColor: colors.surface,
-          borderColor: selected ? colors.ink : colors.border,
-          borderWidth: selected ? hairline * 4 : hairline * 2,
+          backgroundColor: selected ? colors.primarySoft : colors.surface,
+          borderColor: selected ? colors.primary : colors.border,
         },
       ]}>
       {media}
@@ -87,10 +87,10 @@ export function Option({ title, detail, selected = false, onPress, media }: Opti
       <View
         style={[
           styles.radio,
-          { borderColor: selected ? colors.ink : colors.border },
+          { borderColor: selected ? colors.primary : colors.borderStrong },
           selected && { backgroundColor: colors.primary },
         ]}>
-        {selected ? <Feather name="check" size={14} color={colors.onPrimary} /> : null}
+        {selected ? <Ionicons name="checkmark" size={14} color={colors.primaryOn} /> : null}
       </View>
     </Tappable>
   );
@@ -105,13 +105,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  chipLabel: { fontFamily: fontFamily.sansSemibold },
+  chipLabel: { fontFamily: fontFamily.bold },
   option: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: space.md,
     padding: space.md,
     borderRadius: radius.lg,
+    borderWidth: 2,
   },
   optionText: { flex: 1, gap: 2 },
   radio: {

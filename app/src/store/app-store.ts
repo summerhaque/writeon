@@ -75,8 +75,8 @@ export const useAppStore = create<AppState>()(
 
       signIn: (penName, classCode) => {
         const now = Date.now();
-        const { stories, activity } = seedDesk(penName, now);
-        set({ profile: { penName, classCode, joinedAt: now }, stories, activity });
+        const { stories, activity, lessonsDone } = seedDesk(penName, now);
+        set({ profile: { penName, classCode, joinedAt: now }, stories, activity, lessonsDone });
       },
 
       updateProfile: (patch) =>

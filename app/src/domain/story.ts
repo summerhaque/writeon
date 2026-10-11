@@ -4,6 +4,7 @@ import { buildRoadmap } from './roadmap';
 import { STAGE_IDS } from './stages';
 import type {
   Chapter,
+  CoverColor,
   Feeling,
   Genre,
   Length,
@@ -17,6 +18,15 @@ import type {
 import { countWords, isBlank, plural } from './words';
 
 export const UNTITLED = 'Untitled story';
+
+/** A new book starts in its genre's color. The writer can change it on the cover. */
+const GENRE_COVER: Record<Genre, CoverColor> = {
+  fantasy: 'violet',
+  scifi: 'teal',
+  mystery: 'indigo',
+  comedy: 'amber',
+  friendship: 'rose',
+};
 
 const NUMBER_WORDS = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
 
@@ -71,7 +81,7 @@ export function createStory(input: NewStoryInput, now = Date.now()): Story {
     roadmap,
     work,
     completed: {},
-    cover: { template: 'classic', color: 'ink', author: input.author, plateId: null },
+    cover: { template: 'classic', color: GENRE_COVER[input.genre], author: input.author, plateId: null },
     publishedAt: null,
   };
 }

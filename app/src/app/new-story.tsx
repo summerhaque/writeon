@@ -1,9 +1,9 @@
+import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 
-import { PlateArt } from '@/components/book/plate-art';
 import { Sparkle } from '@/components/brand/sparkle';
 import { Button } from '@/components/ui/button';
 import { Option } from '@/components/ui/choice';
@@ -14,19 +14,12 @@ import { TopBar } from '@/components/ui/top-bar';
 import { ROADMAP } from '@/content/roadmap';
 import { buildRoadmap } from '@/domain/roadmap';
 import { GENRE_IDS, GENRES, LENGTHS, STAGE_BY_ID } from '@/domain/stages';
-import type { Feeling, Genre, Length, PlateId, Spark } from '@/domain/types';
+import type { Feeling, Genre, Length, Spark } from '@/domain/types';
 import { haptics } from '@/lib/haptics';
 import { useAppStore } from '@/store/app-store';
+import { genreColors } from '@/theme/colors';
 import { hairline, radius, space } from '@/theme/layout';
 import { useTheme } from '@/theme/use-theme';
-
-const GENRE_PLATES: Record<Genre, PlateId> = {
-  fantasy: 'forest-door',
-  scifi: 'rocket',
-  mystery: 'old-house',
-  comedy: 'birthday-cake',
-  friendship: 'kite-hill',
-};
 
 /** How the roadmap summary describes the ending the writer chose. */
 const ENDINGS: Record<Feeling, string> = {
@@ -123,7 +116,15 @@ export default function NewStoryScreen() {
                 detail={GENRES[id].line}
                 selected={genre === id}
                 onPress={() => answer(setGenre, id, 'spark')}
-                media={<PlateArt id={GENRE_PLATES[id]} radius={radius.sm} style={styles.thumb} />}
+                media={
+                  <View style={[styles.genreTile, { backgroundColor: genreColors[id].soft }]}>
+                    <Ionicons
+                      name={genreColors[id].icon as keyof typeof Ionicons.glyphMap}
+                      size={26}
+                      color={genreColors[id].fg}
+                    />
+                  </View>
+                }
               />
             ))}
           </>
@@ -237,7 +238,7 @@ function RoadmapReveal({ answers, whatIf, onBack }: RoadmapRevealProps) {
               entering={FadeInDown.duration(380).delay(120 + i * 70)}
               style={[
                 styles.stop,
-                { borderColor: first ? colors.ink : colors.border, backgroundColor: colors.surface },
+                { borderColor: first ? colors.primary : colors.border, backgroundColor: colors.surface },
               ]}>
               <View style={styles.stopHead}>
                 <View
@@ -247,7 +248,7 @@ function RoadmapReveal({ answers, whatIf, onBack }: RoadmapRevealProps) {
                       ? { backgroundColor: colors.accent }
                       : { borderColor: colors.border, borderWidth: hairline * 2 },
                   ]}>
-                  <Text variant="footnote" style={{ color: first ? colors.onAccent : colors.muted }}>
+                  <Text variant="footnote" style={{ color: first ? colors.accentOn : colors.inkMuted }}>
                     {i + 1}
                   </Text>
                 </View>
@@ -288,7 +289,13 @@ function RoadmapReveal({ answers, whatIf, onBack }: RoadmapRevealProps) {
 const styles = StyleSheet.create({
   question: { gap: space.sm, paddingTop: space.xs },
   heading: { gap: space.xs, marginBottom: space.md },
-  thumb: { width: 64, height: 48 },
+  genreTile: {
+    width: 52,
+    height: 52,
+    borderRadius: radius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   drawing: { flex: 1, justifyContent: 'center' },
   drawingInner: { alignItems: 'center', gap: space.sm },
   stops: { gap: space.sm, marginTop: space.md },

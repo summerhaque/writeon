@@ -27,12 +27,11 @@ function TabIcon({ name, color }: { name: TabIconName; color: string }) {
     fill: 'none',
   } as const;
   return (
-    <Svg width={26} height={26} viewBox="0 0 24 24">
+    <Svg width={24} height={24} viewBox="0 0 24 24">
       {name === 'desk' && (
         <>
-          <Path d="M12 2.8 17.6 9 13.3 19.6 12 21.2l-1.3-1.6L6.4 9Z" {...line} />
-          <Path d="M12 13.4v7.6" {...line} />
-          <Circle cx={12} cy={11.6} r={1.5} {...line} />
+          <Path d="M15.2 4.8a2.3 2.3 0 0 1 3.3 0l.7.7a2.3 2.3 0 0 1 0 3.3L8.6 19.4 4 20l.6-4.6Z" {...line} />
+          <Path d="m13.5 6.5 4 4" {...line} />
         </>
       )}
       {name === 'shelf' && (
@@ -71,7 +70,7 @@ export function TabBar({ state, navigation }: BottomTabBarProps) {
         styles.bar,
         {
           paddingBottom: Math.max(insets.bottom, space.sm),
-          backgroundColor: colors.background,
+          backgroundColor: colors.surface,
           borderTopColor: colors.border,
         },
       ]}>
@@ -79,7 +78,7 @@ export function TabBar({ state, navigation }: BottomTabBarProps) {
         const tab = TABS[route.name];
         if (!tab) return null;
         const focused = state.index === index;
-        const color = focused ? colors.ink : colors.faint;
+        const color = focused ? colors.primary : colors.inkFaint;
 
         const onPress = () => {
           const event = navigation.emit({ type: 'tabPress', target: route.key, canPreventDefault: true });
@@ -97,13 +96,15 @@ export function TabBar({ state, navigation }: BottomTabBarProps) {
             accessibilityState={{ selected: focused }}
             onPress={onPress}
             style={styles.tab}>
-            <TabIcon name={tab.icon} color={color} />
+            <View style={[styles.iconPill, focused && { backgroundColor: colors.primarySoft }]}>
+              <TabIcon name={tab.icon} color={color} />
+            </View>
             <Text
               variant="footnote"
               numberOfLines={1}
               style={{
                 color,
-                fontFamily: focused ? fontFamily.sansSemibold : fontFamily.sans,
+                fontFamily: focused ? fontFamily.bold : fontFamily.medium,
                 fontSize: 12,
               }}>
               {tab.label}
@@ -122,4 +123,5 @@ const styles = StyleSheet.create({
     paddingTop: space.xs,
   },
   tab: { flex: 1, alignItems: 'center', gap: 2, paddingVertical: 2 },
+  iconPill: { width: 56, height: 30, borderRadius: 15, alignItems: 'center', justifyContent: 'center' },
 });

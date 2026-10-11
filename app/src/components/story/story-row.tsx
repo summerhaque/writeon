@@ -1,4 +1,4 @@
-import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 
@@ -35,7 +35,7 @@ export function StoryRow({ story }: { story: Story }) {
           {GENRES[story.genre].name} · {status}
         </Text>
       </View>
-      <Feather name="chevron-right" size={20} color={colors.faint} />
+      <Ionicons name="chevron-forward" size={20} color={colors.inkFaint} />
     </Tappable>
   );
 }

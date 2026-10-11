@@ -1,4 +1,4 @@
-import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
@@ -7,6 +7,7 @@ import { Text } from '@/components/ui/text';
 import { STAGES } from '@/domain/stages';
 import { stageStatus, stageSummary } from '@/domain/story';
 import type { StageId, Story } from '@/domain/types';
+import { stageColors, stageInkIsDark } from '@/theme/colors';
 import { hairline, space } from '@/theme/layout';
 import { useTheme } from '@/theme/use-theme';
 
@@ -38,9 +39,9 @@ export function StoryPath({ story, upNext, onOpen }: StoryPathProps) {
             <Path
               key={i}
               d={`M${from.x} ${from.y} C${from.x} ${from.y + ROW / 2} ${to.x} ${to.y - ROW / 2} ${to.x} ${to.y}`}
-              stroke={walked ? colors.ink : colors.faint}
-              strokeWidth={walked ? 2 : 1.6}
-              strokeDasharray={walked ? undefined : '1 6'}
+              stroke={walked ? stageColors[i + 1] : colors.borderStrong}
+              strokeWidth={walked ? 3 : 2}
+              strokeDasharray={walked ? undefined : '1 7'}
               strokeLinecap="round"
               fill="none"
             />
@@ -61,30 +62,26 @@ export function StoryPath({ story, upNext, onOpen }: StoryPathProps) {
             pressScale={0.98}
             style={[styles.row, { top: i * ROW }]}>
             <View style={[styles.nodeSlot, { left: centers[i].x - NODE / 2 }]}>
-              {isNext && <View style={[styles.halo, { backgroundColor: colors.accentFill }]} />}
+              {isNext && <View style={[styles.halo, { borderColor: colors.accent }]} />}
               <View
                 style={[
                   styles.node,
-                  status === 'done' && { backgroundColor: colors.primary },
+                  status === 'done' && { backgroundColor: stageColors[i] },
                   status === 'in-progress' && {
                     backgroundColor: colors.surface,
-                    borderWidth: 2,
-                    borderColor: isNext ? colors.accent : colors.ink,
+                    borderWidth: 3,
+                    borderColor: stageColors[i],
                   },
                   status === 'not-started' && {
-                    backgroundColor: colors.background,
-                    borderWidth: isNext ? 2 : hairline * 3,
-                    borderColor: isNext ? colors.accent : colors.faint,
+                    backgroundColor: colors.surface,
+                    borderWidth: hairline * 4,
+                    borderColor: colors.borderStrong,
                   },
                 ]}>
                 {status === 'done' ? (
-                  <Feather name="check" size={18} color={colors.onPrimary} />
+                  <Ionicons name="checkmark" size={19} color={stageInkIsDark(i) ? colors.ink : '#FFFFFF'} />
                 ) : (
-                  <Text
-                    variant="label"
-                    style={{
-                      color: isNext ? colors.accent : status === 'in-progress' ? colors.ink : colors.muted,
-                    }}>
+                  <Text variant="label" tone={status === 'in-progress' ? 'ink' : 'muted'}>
                     {stage.number}
                   </Text>
                 )}
@@ -106,7 +103,7 @@ export function StoryPath({ story, upNext, onOpen }: StoryPathProps) {
                 {status === 'not-started' ? stage.blurb : stageSummary(story, stage.id)}
               </Text>
             </View>
-            <Feather name="chevron-right" size={20} color={colors.faint} />
+            <Ionicons name="chevron-forward" size={20} color={colors.inkFaint} />
           </Tappable>
         );
       })}
@@ -134,7 +131,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  halo: { position: 'absolute', width: NODE + 16, height: NODE + 16, borderRadius: (NODE + 16) / 2 },
+  halo: {
+    position: 'absolute',
+    width: NODE + 12,
+    height: NODE + 12,
+    borderRadius: (NODE + 12) / 2,
+    borderWidth: 3,
+  },
   node: { width: NODE, height: NODE, borderRadius: NODE / 2, alignItems: 'center', justifyContent: 'center' },
   label: { flex: 1, gap: 1 },
   nameLine: { flexDirection: 'row', alignItems: 'center', gap: space.sm },

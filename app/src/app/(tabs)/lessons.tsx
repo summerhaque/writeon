@@ -1,4 +1,4 @@
-import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 
@@ -42,7 +42,9 @@ export default function LessonsScreen() {
                 onPress={() => router.push({ pathname: '/lesson/[id]', params: { id: lesson.id } })}
                 pressScale={0.99}
                 style={styles.row}>
-                <Text style={[styles.number, { color: colors.faint }]}>{String(i + 1).padStart(2, '0')}</Text>
+                <Text style={[styles.number, { color: colors.inkFaint }]}>
+                  {String(i + 1).padStart(2, '0')}
+                </Text>
                 <View style={styles.text}>
                   <Text variant="title3">{lesson.title}</Text>
                   <Text variant="callout" tone="muted">
@@ -53,9 +55,9 @@ export default function LessonsScreen() {
                   </Text>
                 </View>
                 {done ? (
-                  <Feather name="check-circle" size={20} color={colors.success} />
+                  <Ionicons name="checkmark-circle" size={20} color={colors.success} />
                 ) : (
-                  <Feather name="chevron-right" size={20} color={colors.faint} />
+                  <Ionicons name="chevron-forward" size={20} color={colors.inkFaint} />
                 )}
               </Tappable>
             </View>
@@ -70,6 +72,6 @@ const styles = StyleSheet.create({
   head: { gap: space.xxs, paddingTop: space.lg, marginBottom: space.lg },
   count: { marginTop: space.sm },
   row: { flexDirection: 'row', alignItems: 'center', gap: space.md, paddingVertical: space.md },
-  number: { fontFamily: fontFamily.serifMedium, fontSize: 18, width: 28 },
+  number: { fontFamily: fontFamily.bold, fontSize: 18, width: 28 },
   text: { flex: 1, gap: 2 },
 });

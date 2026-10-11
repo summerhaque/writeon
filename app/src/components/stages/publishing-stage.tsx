@@ -1,4 +1,4 @@
-import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
@@ -88,7 +88,7 @@ export function PublishingStage({ story, edit, flush }: StageProps) {
                 accessibilityState={{ selected }}
                 onPress={() => setCover({ color: id })}
                 pressScale={0.9}
-                style={[styles.swatchRing, { borderColor: selected ? colors.ink : 'transparent' }]}>
+                style={[styles.swatchRing, { borderColor: selected ? colors.primary : 'transparent' }]}>
                 <View style={[styles.swatch, { backgroundColor: coverColors[id].ink }]} />
               </Tappable>
             );
@@ -110,7 +110,7 @@ export function PublishingStage({ story, edit, flush }: StageProps) {
                   accessibilityState={{ selected }}
                   onPress={() => setCover({ plateId: plate.id })}
                   pressScale={0.95}
-                  style={[styles.plate, { borderColor: selected ? colors.ink : 'transparent' }]}>
+                  style={[styles.plate, { borderColor: selected ? colors.primary : 'transparent' }]}>
                   <PlateArt id={plate.id} radius={radius.sm - 2} />
                 </Tappable>
               );
@@ -164,10 +164,10 @@ export function PublishingStage({ story, edit, flush }: StageProps) {
       <Section label="Before you publish" style={styles.checks}>
         {checks.map((check) => (
           <View key={check.id} style={styles.check}>
-            <Feather
-              name={check.ok ? 'check-circle' : 'circle'}
+            <Ionicons
+              name={check.ok ? 'checkmark-circle' : 'ellipse-outline'}
               size={18}
-              color={check.ok ? colors.success : colors.faint}
+              color={check.ok ? colors.success : colors.inkFaint}
             />
             <Text variant="callout" tone={check.ok ? 'ink' : 'muted'}>
               {check.label}
@@ -180,7 +180,7 @@ export function PublishingStage({ story, edit, flush }: StageProps) {
         <Button
           label={story.publishedAt ? 'Publish a new edition' : 'Publish my book'}
           variant="accent"
-          icon="book"
+          icon="book-outline"
           onPress={publish}
           disabled={!ready}
           block

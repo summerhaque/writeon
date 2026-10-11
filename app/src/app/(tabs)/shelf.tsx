@@ -26,10 +26,10 @@ export default function ShelfScreen() {
     <Screen edges={['top']}>
       <View style={styles.head}>
         <Text variant="title1" accessibilityRole="header">
-          Shelf
+          Story Shelf
         </Text>
         <Text variant="callout" tone="muted">
-          Books you’ve published, next to books by other young writers.
+          Finished books land here, right next to books by other young writers.
         </Text>
       </View>
 
@@ -76,7 +76,7 @@ function Bookshelf({ books }: { books: Book[] }) {
             ))}
           </View>
           {/* The plank the books stand on. */}
-          <View style={[styles.plank, { backgroundColor: colors.border }]} />
+          <View style={[styles.plank, { backgroundColor: colors.borderStrong }]} />
           <View style={styles.row}>
             {row.map((book) => (
               <View key={book.id} style={[styles.label, { width: coverWidth }]}>
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   head: { gap: space.xxs, paddingTop: space.lg },
   shelf: { gap: 0, marginTop: space.xs },
   row: { flexDirection: 'row', gap: GAP, alignItems: 'flex-end' },
-  plank: { height: 5, borderRadius: 2, marginHorizontal: -space.xs, marginTop: -1 },
+  plank: { height: 8, borderRadius: 4, marginHorizontal: -space.xs, marginTop: -2 },
   label: { gap: 1, paddingTop: space.sm, paddingBottom: space.xl },
-  title: { fontFamily: fontFamily.sansSemibold },
+  title: { fontFamily: fontFamily.semibold },
 });

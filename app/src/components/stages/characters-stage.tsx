@@ -75,7 +75,7 @@ export function CharactersStage({ story, edit, flush }: StageProps) {
                 Character {i + 1}
               </Text>
               <IconButton
-                icon="trash-2"
+                icon="trash-outline"
                 label={`Remove ${character.name || 'character'}`}
                 tone="muted"
                 size={18}
@@ -133,7 +133,7 @@ export function CharactersStage({ story, edit, flush }: StageProps) {
 
       <Button
         label={characters.length === 0 ? 'Add your first character' : 'Add a character'}
-        icon="plus"
+        icon="add"
         variant={characters.length === 0 ? 'primary' : 'secondary'}
         onPress={add}
         block

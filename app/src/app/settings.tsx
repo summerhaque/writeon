@@ -1,7 +1,8 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 
-import { FeatherMark } from '@/components/brand/logo';
+import { Logo } from '@/components/brand/logo';
 import { Button } from '@/components/ui/button';
 import { Chip } from '@/components/ui/choice';
 import { Field } from '@/components/ui/field';
@@ -11,12 +12,13 @@ import { Text } from '@/components/ui/text';
 import { TopBar } from '@/components/ui/top-bar';
 import { eraseSavedFiles } from '@/lib/local-files';
 import { useAppStore, type AppearancePreference } from '@/store/app-store';
+import { useStories } from '@/store/selectors';
 import { space } from '@/theme/layout';
 
 const APPEARANCES: { id: AppearancePreference; label: string }[] = [
-  { id: 'system', label: 'Match my device' },
-  { id: 'light', label: 'Paper' },
-  { id: 'dark', label: 'Ink' },
+  { id: 'system', label: 'System' },
+  { id: 'light', label: 'Light' },
+  { id: 'dark', label: 'Dark' },
 ];
 
 export default function SettingsScreen() {
@@ -25,6 +27,7 @@ export default function SettingsScreen() {
   const updateProfile = useAppStore((state) => state.updateProfile);
   const setAppearance = useAppStore((state) => state.setAppearance);
   const startOver = useAppStore((state) => state.startOver);
+  const published = useStories().filter((story) => story.publishedAt !== null).length;
   const [penName, setPenName] = useState(profile?.penName ?? '');
   const [classCode, setClassCode] = useState(profile?.classCode ?? '');
 
@@ -34,19 +37,26 @@ export default function SettingsScreen() {
     else setPenName(profile?.penName ?? '');
   };
 
+  const erase = () => {
+    eraseSavedFiles();
+    startOver();
+  };
+
+  // Books come first: anyone with published books is sent to save them before anything is erased.
   const confirmStartOver = () =>
     Alert.alert(
-      'Start over?',
-      'This erases every story, picture, badge and setting on this device. It can’t be undone.',
+      published > 0 ? 'Save your books first' : 'Start over?',
+      published > 0
+        ? `Starting over erases everything on this device, including ${published === 1 ? 'your published book' : `your ${published} published books`}. Open each one on your shelf and tap Share to save it as a PDF.`
+        : 'This erases every story, picture, badge and setting on this device. It can’t be undone.',
       [
-        { text: 'Keep everything', style: 'cancel' },
+        published > 0
+          ? { text: 'Go to my shelf', onPress: () => router.navigate('/shelf') }
+          : { text: 'Keep everything', style: 'cancel' },
         {
-          text: 'Erase and start over',
+          text: published > 0 ? 'Erase anyway' : 'Erase and start over',
           style: 'destructive',
-          onPress: () => {
-            eraseSavedFiles();
-            startOver();
-          },
+          onPress: erase,
         },
       ],
     );
@@ -93,16 +103,19 @@ export default function SettingsScreen() {
         </View>
       </Section>
 
-      <Section label="How the coach works">
+      <Section label="About this demo">
         <Text variant="body" tone="muted">
-          Coach Sparkle runs right here on this device. It asks questions and gives hints, three at a time. It
-          never writes your story, even if you ask nicely.
+          This is a demo build of Write On! In the full app, Coach Sparkle is an AI writing coach: your
+          writing goes to an AI model that is prompted to give hints, never answers.
+        </Text>
+        <Text variant="body" tone="muted">
+          In this demo, the coach is scripted. It runs on this device and never connects to the internet.
         </Text>
       </Section>
 
       <Section label="Your stories">
         <Text variant="body" tone="muted">
-          Everything you write stays on this device. Nothing is uploaded, and there are no ads.
+          Your stories save as you type, on this device.
         </Text>
         <Button
           label="Erase everything and start over"
@@ -113,9 +126,9 @@ export default function SettingsScreen() {
       </Section>
 
       <View style={styles.about}>
-        <FeatherMark height={48} />
+        <Logo variant="icon" height={40} />
         <Text variant="footnote" tone="muted" align="center">
-          Write On! 1.0{'\n'}Everyone has a story worth telling.
+          Write On! 1.0 · Demo build{'\n'}Made by Summer Haque
         </Text>
       </View>
     </Screen>

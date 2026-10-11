@@ -58,7 +58,7 @@ export default function StoryPathScreen() {
       header={
         <TopBar
           trailing={
-            <IconButton icon="more-horizontal" label="Story options" onPress={() => setMenuOpen(true)} />
+            <IconButton icon="ellipsis-horizontal" label="Story options" onPress={() => setMenuOpen(true)} />
           }
         />
       }>
@@ -94,7 +94,7 @@ export default function StoryPathScreen() {
           <View
             style={[
               styles.trackFill,
-              { backgroundColor: colors.ink, width: `${Math.min(100, (words / goal) * 100)}%` },
+              { backgroundColor: colors.primary, width: `${Math.min(100, (words / goal) * 100)}%` },
             ]}
           />
         </View>
@@ -108,7 +108,7 @@ export default function StoryPathScreen() {
 
       <Button
         label="Read it as a book"
-        icon="book-open"
+        icon="book-outline"
         variant="secondary"
         onPress={() => router.push({ pathname: '/read/[id]', params: { id: story.id } })}
         block
@@ -119,8 +119,8 @@ export default function StoryPathScreen() {
         visible={menuOpen}
         onClose={() => setMenuOpen(false)}
         actions={[
-          { label: 'Rename', icon: 'edit-3', onPress: () => setRenaming(true) },
-          { label: 'Delete story', icon: 'trash-2', onPress: confirmDelete, destructive: true },
+          { label: 'Rename', icon: 'create-outline', onPress: () => setRenaming(true) },
+          { label: 'Delete story', icon: 'trash-outline', onPress: confirmDelete, destructive: true },
         ]}
       />
       <PromptDialog

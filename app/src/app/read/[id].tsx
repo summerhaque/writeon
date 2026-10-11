@@ -1,12 +1,20 @@
 import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useMemo, useRef, useState } from 'react';
-import { FlatList, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { BookCover } from '@/components/book/book-cover';
 import { PlateArt } from '@/components/book/plate-art';
-import { FeatherMark } from '@/components/brand/logo';
+import { Logo } from '@/components/brand/logo';
 import { Button } from '@/components/ui/button';
 import { IconButton } from '@/components/ui/icon-button';
 import { Missing } from '@/components/ui/missing';
@@ -14,6 +22,7 @@ import { Text } from '@/components/ui/text';
 import { SAMPLE_BOOKS } from '@/content/sample-books';
 import { bookFromSample, bookFromStory, type Book, type BookChapter } from '@/domain/book';
 import { GENRES } from '@/domain/stages';
+import { exportBook, shareBook } from '@/publish/export-book';
 import { useStory } from '@/store/selectors';
 import { gutter, MAX_CONTENT_WIDTH, radius, space } from '@/theme/layout';
 import { useTheme } from '@/theme/use-theme';
@@ -42,6 +51,24 @@ function Reader({ book }: { book: Book }) {
   const { width } = useWindowDimensions();
   const list = useRef<FlatList<Page>>(null);
   const [index, setIndex] = useState(0);
+  const [sharing, setSharing] = useState(false);
+  const canShare = !book.sample && book.publishedAt !== null;
+
+  const share = async () => {
+    if (sharing) return;
+    setSharing(true);
+    try {
+      await shareBook(await exportBook(book), book.title);
+    } catch (error) {
+      console.warn('Sharing failed', error);
+      Alert.alert(
+        'That didn’t work',
+        'The book couldn’t be saved as a PDF this time. Try again in a moment.',
+      );
+    } finally {
+      setSharing(false);
+    }
+  };
 
   const pages: Page[] = [
     { kind: 'cover' },
@@ -58,13 +85,20 @@ function Reader({ book }: { book: Book }) {
   };
 
   return (
-    <SafeAreaView style={[styles.screen, { backgroundColor: colors.background }]}>
+    <SafeAreaView style={[styles.screen, { backgroundColor: colors.bg }]}>
       <View style={styles.bar}>
-        <IconButton icon="x" label="Close book" onPress={() => router.back()} />
+        <IconButton icon="close" label="Close book" onPress={() => router.back()} />
         <Text variant="label" numberOfLines={1} style={styles.barTitle}>
           {book.title}
         </Text>
-        <View style={styles.barSide} />
+        <View style={styles.barSide}>
+          {canShare &&
+            (sharing ? (
+              <ActivityIndicator color={colors.primary} />
+            ) : (
+              <IconButton icon="share-outline" label="Save or share this book as a PDF" onPress={share} />
+            ))}
+        </View>
       </View>
 
       <FlatList
@@ -85,7 +119,7 @@ function Reader({ book }: { book: Book }) {
 
       <View style={styles.footer}>
         <IconButton
-          icon="chevron-left"
+          icon="chevron-back"
           label="Previous page"
           onPress={() => go(index - 1)}
           tone={index === 0 ? 'muted' : 'ink'}
@@ -94,7 +128,7 @@ function Reader({ book }: { book: Book }) {
           {index + 1} of {pages.length}
         </Text>
         <IconButton
-          icon="chevron-right"
+          icon="chevron-forward"
           label="Next page"
           onPress={() => go(index + 1)}
           tone={index === pages.length - 1 ? 'muted' : 'ink'}
@@ -151,7 +185,7 @@ function PageView({ page, book }: { page: Page; book: Book }) {
   if (page.kind === 'end') {
     return (
       <View style={styles.centerPage}>
-        <FeatherMark height={72} />
+        <Logo variant="mark" height={64} />
         <Text variant="title2" align="center">
           {book.chapters.length > 0 ? 'The End' : 'Nothing to read yet'}
         </Text>
@@ -215,7 +249,7 @@ const styles = StyleSheet.create({
   screen: { flex: 1 },
   bar: { height: 52, flexDirection: 'row', alignItems: 'center', paddingHorizontal: gutter - 12 },
   barTitle: { flex: 1, textAlign: 'center' },
-  barSide: { width: 44 },
+  barSide: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center' },
   centerPage: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: space.lg, padding: gutter },
   coverText: { gap: space.xxs },
   dedication: { maxWidth: 300 },

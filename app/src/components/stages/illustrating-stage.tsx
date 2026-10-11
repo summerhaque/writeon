@@ -1,4 +1,4 @@
-import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { useState } from 'react';
 import { Alert, Linking, StyleSheet, View } from 'react-native';
@@ -136,7 +136,7 @@ export function IllustratingStage({ story, edit, flush }: StageProps) {
               </View>
               <View style={styles.removeRow}>
                 <IconButton
-                  icon="trash-2"
+                  icon="trash-outline"
                   label="Remove picture"
                   tone="muted"
                   size={18}
@@ -149,7 +149,7 @@ export function IllustratingStage({ story, edit, flush }: StageProps) {
       )}
 
       <Surface style={styles.drawCard}>
-        <Feather name="camera" size={22} color={colors.ink} />
+        <Ionicons name="camera-outline" size={22} color={colors.primary} />
         <View style={styles.flex}>
           <Text variant="headline">Use your own drawing</Text>
           <Text variant="footnote" tone="muted">
@@ -185,7 +185,7 @@ export function IllustratingStage({ story, edit, flush }: StageProps) {
                 <Text variant="footnote" numberOfLines={1} style={styles.flex}>
                   {plate.title}
                 </Text>
-                {usedPlates.has(plate.id) && <Feather name="check" size={14} color={colors.success} />}
+                {usedPlates.has(plate.id) && <Ionicons name="checkmark" size={14} color={colors.success} />}
               </View>
             </Tappable>
           ))}
@@ -197,8 +197,8 @@ export function IllustratingStage({ story, edit, flush }: StageProps) {
         title="Add your drawing"
         onClose={() => setChoosingSource(false)}
         actions={[
-          { label: 'Take a photo', icon: 'camera', onPress: () => addPhoto('camera') },
-          { label: 'Choose from photos', icon: 'image', onPress: () => addPhoto('library') },
+          { label: 'Take a photo', icon: 'camera-outline', onPress: () => addPhoto('camera') },
+          { label: 'Choose from photos', icon: 'image-outline', onPress: () => addPhoto('library') },
         ]}
       />
     </View>

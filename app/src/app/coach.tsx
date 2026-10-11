@@ -52,17 +52,24 @@ function Conversation({ story, stage }: { story: Story; stage: StageId }) {
     <View
       style={[
         styles.screen,
-        { backgroundColor: colors.background, paddingTop: Platform.OS === 'ios' ? 0 : insets.top },
+        { backgroundColor: colors.bg, paddingTop: Platform.OS === 'ios' ? 0 : insets.top },
       ]}>
       <View style={[styles.header, { borderBottomColor: colors.border }]}>
         <Sparkle size={22} />
         <View style={styles.headerText}>
-          <Text variant="headline">Coach Sparkle</Text>
+          <View style={styles.titleRow}>
+            <Text variant="headline">Coach Sparkle</Text>
+            <View style={[styles.demoChip, { backgroundColor: colors.primarySoft }]}>
+              <Text variant="footnote" tone="primary" style={styles.demoChipText}>
+                Demo coach · scripted
+              </Text>
+            </View>
+          </View>
           <Text variant="footnote" tone="muted">
             {coachContextLabel(story, stage)} · Hints, never answers
           </Text>
         </View>
-        <IconButton icon="x" label="Close" onPress={() => router.back()} />
+        <IconButton icon="close" label="Close" onPress={() => router.back()} />
       </View>
 
       <ScrollView
@@ -107,8 +114,8 @@ function Conversation({ story, stage }: { story: Story; stage: StageId }) {
             value={message}
             onChangeText={setMessage}
             placeholder="Ask Sparkle anything about your story"
-            placeholderTextColor={colors.faint}
-            selectionColor={colors.accent}
+            placeholderTextColor={colors.inkFaint}
+            selectionColor={colors.primary}
             cursorColor={colors.ink}
             maxFontSizeMultiplier={MAX_FONT_SCALE}
             multiline
@@ -172,6 +179,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: hairline,
   },
   headerText: { flex: 1 },
+  titleRow: { flexDirection: 'row', alignItems: 'center', gap: space.xs, flexWrap: 'wrap' },
+  demoChip: { borderRadius: radius.pill, paddingHorizontal: space.xs, paddingVertical: 1 },
+  demoChipText: { fontSize: 12, lineHeight: 16, fontFamily: fontFamily.bold },
   thread: {
     padding: gutter,
     gap: space.lg,
@@ -206,7 +216,7 @@ const styles = StyleSheet.create({
     maxHeight: 120,
     paddingTop: 12,
     paddingBottom: 12,
-    fontFamily: fontFamily.sans,
+    fontFamily: fontFamily.regular,
     fontSize: type.body.fontSize,
   },
 });

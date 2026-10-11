@@ -1,4 +1,4 @@
-import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
 
 import { useTheme } from '@/theme/use-theme';
@@ -6,7 +6,7 @@ import { useTheme } from '@/theme/use-theme';
 import { Tappable } from './tappable';
 
 interface IconButtonProps {
-  icon: keyof typeof Feather.glyphMap;
+  icon: keyof typeof Ionicons.glyphMap;
   label: string;
   onPress: () => void;
   tone?: 'ink' | 'muted';
@@ -18,7 +18,7 @@ export function IconButton({ icon, label, onPress, tone = 'ink', size = 22 }: Ic
   const { colors } = useTheme();
   return (
     <Tappable accessibilityLabel={label} hitSlop={6} onPress={onPress} pressScale={0.9} style={styles.button}>
-      <Feather name={icon} size={size} color={colors[tone]} />
+      <Ionicons name={icon} size={size} color={tone === 'ink' ? colors.ink : colors.inkMuted} />
     </Tappable>
   );
 }

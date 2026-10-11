@@ -36,7 +36,7 @@ export function BookCover({ title, cover, width, compact = false }: BookCoverPro
       align={align}
       style={{
         color,
-        fontFamily: fontFamily.serifSemibold,
+        fontFamily: fontFamily.extrabold,
         fontSize: titleSize,
         lineHeight: titleSize * 1.18,
         letterSpacing: -titleSize * 0.01,
@@ -52,7 +52,7 @@ export function BookCover({ title, cover, width, compact = false }: BookCoverPro
         align={align}
         style={{
           color,
-          fontFamily: fontFamily.sansSemibold,
+          fontFamily: fontFamily.bold,
           fontSize: authorSize,
           letterSpacing: authorSize * 0.14,
           textTransform: 'uppercase',
@@ -61,7 +61,7 @@ export function BookCover({ title, cover, width, compact = false }: BookCoverPro
       </Text>
     ) : null;
 
-  const corner = Math.max(2, width * 0.025);
+  const corner = Math.max(3, width * 0.04);
 
   return (
     <View
@@ -71,25 +71,29 @@ export function BookCover({ title, cover, width, compact = false }: BookCoverPro
       <View style={[styles.book, { borderRadius: corner }]}>
         {cover.template === 'classic' && (
           <View style={[styles.fill, { backgroundColor: ink, padding: width * 0.05 }]}>
-            <View style={[styles.frame, { padding: pad * 0.8, borderColor: 'rgba(250, 247, 241, 0.55)' }]}>
+            <View
+              style={[
+                styles.frame,
+                { padding: pad * 0.8, borderColor: 'rgba(255, 255, 255, 0.5)', borderRadius: corner * 1.5 },
+              ]}>
               <View style={styles.center}>
-                {titleText(print.paper, 'center')}
+                {titleText(print.onCover, 'center')}
                 <View style={[styles.rule, { width: width * 0.14, marginTop: width * 0.06 }]} />
               </View>
-              {authorText(print.paper, 'center')}
+              {authorText(print.onCover, 'center')}
             </View>
           </View>
         )}
 
         {cover.template === 'band' && (
-          <View style={[styles.fill, { backgroundColor: print.paperDeep }]}>
+          <View style={[styles.fill, { backgroundColor: print.paperTint }]}>
             <View style={styles.spacer} />
             <View
               style={[
                 styles.band,
                 { backgroundColor: ink, paddingHorizontal: pad, paddingVertical: pad * 0.9 },
               ]}>
-              {titleText(print.paper, 'center')}
+              {titleText(print.onCover, 'center')}
             </View>
             <View style={[styles.spacer, styles.bottomAligned, { paddingBottom: pad }]}>
               {authorText(print.ink, 'center')}
@@ -98,7 +102,7 @@ export function BookCover({ title, cover, width, compact = false }: BookCoverPro
         )}
 
         {cover.template === 'plate' && (
-          <View style={[styles.fill, { backgroundColor: print.paperDeep }]}>
+          <View style={[styles.fill, { backgroundColor: print.paperTint }]}>
             <PlateArt id={plateId} radius={0} />
             <View style={{ height: width * 0.025, backgroundColor: ink }} />
             <View style={[styles.plateText, { padding: pad, gap: width * 0.04 }]}>
@@ -110,8 +114,8 @@ export function BookCover({ title, cover, width, compact = false }: BookCoverPro
 
         {cover.template === 'minimal' && (
           <View style={[styles.fill, styles.minimal, { backgroundColor: ink, padding: pad }]}>
-            {titleText(print.paper, 'left')}
-            {authorText('rgba(250, 247, 241, 0.8)', 'left')}
+            {titleText(print.onCover, 'left')}
+            {authorText('rgba(255, 255, 255, 0.82)', 'left')}
           </View>
         )}
 
@@ -126,16 +130,16 @@ export function BookCover({ title, cover, width, compact = false }: BookCoverPro
 const styles = StyleSheet.create({
   book: { flex: 1, overflow: 'hidden' },
   shadow: {
-    shadowColor: '#1B1E2B',
+    shadowColor: '#12354F',
     shadowOpacity: 0.18,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 3 },
-    elevation: 3,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 4,
   },
   fill: { flex: 1 },
   frame: { flex: 1, borderWidth: 1, justifyContent: 'space-between', alignItems: 'center' },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center', alignSelf: 'stretch' },
-  rule: { height: 1.5, backgroundColor: 'rgba(250, 247, 241, 0.7)' },
+  rule: { height: 2.5, borderRadius: 2, backgroundColor: print.accent },
   spacer: { flex: 1 },
   bottomAligned: { justifyContent: 'flex-end' },
   band: { justifyContent: 'center' },

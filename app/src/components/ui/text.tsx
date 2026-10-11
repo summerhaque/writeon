@@ -9,10 +9,19 @@ import type { Palette } from '@/theme/colors';
 import { MAX_FONT_SCALE, safeLineHeight, type as scale, type TypeVariant } from '@/theme/typography';
 import { useTheme } from '@/theme/use-theme';
 
-export type TextTone = Extract<
-  keyof Palette,
-  'ink' | 'muted' | 'faint' | 'accent' | 'link' | 'success' | 'onPrimary'
->;
+/** Text colors, by what the text is doing. Amber text uses the shade that reads on white. */
+const TONES = {
+  ink: 'ink',
+  muted: 'inkMuted',
+  faint: 'inkFaint',
+  primary: 'primary',
+  accent: 'accentText',
+  link: 'link',
+  success: 'success',
+  onPrimary: 'primaryOn',
+} as const satisfies Record<string, keyof Palette>;
+
+export type TextTone = keyof typeof TONES;
 
 export interface TextProps extends NativeTextProps {
   /** A step on the type scale. */
@@ -44,7 +53,7 @@ export function Text({ variant = 'body', tone = 'ink', italic = false, align, st
           fontSize: base.fontSize,
           letterSpacing: 'letterSpacing' in base ? base.letterSpacing : undefined,
           textTransform: 'textTransform' in base ? base.textTransform : undefined,
-          color: colors[tone],
+          color: colors[TONES[tone]],
           textAlign: align,
         },
         style,

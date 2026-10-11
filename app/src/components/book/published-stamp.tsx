@@ -20,7 +20,7 @@ interface PublishedStampProps {
   onLand?: () => void;
 }
 
-/** A rubber stamp, inked in vermilion, pressed onto the cover. */
+/** The published stamp: navy, ringed in amber, pressed onto the cover. */
 export function PublishedStamp({ date, onLand }: PublishedStampProps) {
   const press = useSharedValue(0);
   const onLandRef = useRef(onLand);
@@ -42,14 +42,14 @@ export function PublishedStamp({ date, onLand }: PublishedStampProps) {
 
   const style = useAnimatedStyle(() => ({
     opacity: press.value,
-    transform: [{ scale: 2.4 - press.value * 1.4 }, { rotate: '-12deg' }],
+    transform: [{ scale: 2.4 - press.value * 1.4 }, { rotate: '-10deg' }],
   }));
 
   return (
     <Animated.View style={[styles.stamp, style]} accessibilityLabel={`Published ${formatShortDate(date)}`}>
       <View style={styles.inner}>
+        <Text style={styles.star}>★</Text>
         <Text style={styles.word}>Published</Text>
-        <View style={styles.rule} />
         <Text style={styles.date}>{formatShortDate(date)}</Text>
       </View>
     </Animated.View>
@@ -73,30 +73,31 @@ const styles = StyleSheet.create({
     position: 'absolute',
     borderWidth: 3,
     borderColor: print.accent,
-    borderRadius: 6,
+    borderRadius: 18,
     padding: 3,
-    backgroundColor: 'rgba(250, 247, 241, 0.86)',
+    backgroundColor: print.ink,
   },
   inner: {
-    borderWidth: 1.2,
-    borderColor: print.accent,
-    borderRadius: 3,
-    paddingHorizontal: 16,
-    paddingVertical: 6,
+    borderWidth: 1.5,
+    borderColor: 'rgba(242, 166, 90, 0.55)',
+    borderRadius: 14,
+    paddingHorizontal: 18,
+    paddingVertical: 8,
     alignItems: 'center',
+    gap: 2,
   },
+  star: { color: print.accent, fontSize: 16, lineHeight: 18 },
   word: {
-    fontFamily: fontFamily.sansBold,
+    fontFamily: fontFamily.extrabold,
     fontSize: 22,
-    letterSpacing: 4,
+    letterSpacing: 3,
     textTransform: 'uppercase',
-    color: print.accent,
+    color: print.onCover,
   },
-  rule: { height: 1.2, alignSelf: 'stretch', backgroundColor: print.accent, marginVertical: 2 },
   date: {
-    fontFamily: fontFamily.sansSemibold,
+    fontFamily: fontFamily.bold,
     fontSize: 11,
-    letterSpacing: 2,
+    letterSpacing: 1.6,
     textTransform: 'uppercase',
     color: print.accent,
   },

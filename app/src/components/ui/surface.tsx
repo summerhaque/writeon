@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
-import { hairline, radius, space } from '@/theme/layout';
+import { hairline, radius, shadow, space } from '@/theme/layout';
 import { useTheme } from '@/theme/use-theme';
 
 import { Tappable } from './tappable';
@@ -14,10 +14,15 @@ interface SurfaceProps {
   style?: StyleProp<ViewStyle>;
 }
 
-/** A sheet of good paper: the card everything sits on. */
+/** A white card: what everything sits on. */
 export function Surface({ children, onPress, accessibilityLabel, style }: SurfaceProps) {
   const { colors } = useTheme();
-  const look = [styles.surface, { backgroundColor: colors.surface, borderColor: colors.border }, style];
+  const look = [
+    styles.surface,
+    shadow.sm,
+    { backgroundColor: colors.surface, borderColor: colors.border },
+    style,
+  ];
   if (!onPress) return <View style={look}>{children}</View>;
   return (
     <Tappable accessibilityLabel={accessibilityLabel} onPress={onPress} pressScale={0.985} style={look}>
@@ -38,12 +43,28 @@ export function Section({ label, action, children, style }: SectionProps) {
   return (
     <View style={[styles.section, style]}>
       <View style={styles.sectionHead}>
-        <Text variant="overline" tone="muted" accessibilityRole="header">
-          {label}
-        </Text>
+        <View style={styles.eyebrow}>
+          <WrittenLines />
+          <Text variant="overline" tone="muted" accessibilityRole="header">
+            {label}
+          </Text>
+        </View>
         {action}
       </View>
       {children}
+    </View>
+  );
+}
+
+/** The logo's three written lines, small: the brand's section marker. */
+export function WrittenLines({ color }: { color?: string }) {
+  const { colors } = useTheme();
+  const tint = color ?? colors.sky;
+  return (
+    <View style={styles.lines} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+      <View style={[styles.lineBar, { width: 10, backgroundColor: tint }]} />
+      <View style={[styles.lineBar, { width: 14, backgroundColor: tint }]} />
+      <View style={[styles.lineBar, { width: 8, backgroundColor: tint }]} />
     </View>
   );
 }
@@ -56,8 +77,8 @@ export function Rule({ style }: { style?: StyleProp<ViewStyle> }) {
 const styles = StyleSheet.create({
   surface: {
     borderRadius: radius.lg,
-    borderWidth: hairline * 2,
-    padding: space.md,
+    borderWidth: hairline,
+    padding: space.lg,
   },
   section: { marginTop: space.xxl, gap: space.sm },
   sectionHead: {
@@ -66,4 +87,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  eyebrow: { flexDirection: 'row', alignItems: 'center', gap: space.xs },
+  lines: { gap: 2 },
+  lineBar: { height: 3, borderRadius: 2 },
 });

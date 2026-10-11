@@ -73,7 +73,7 @@ export function CoachCard({ story, stage, onOpenChat }: CoachCardProps) {
           label="Talk it through"
           variant="quiet"
           size="sm"
-          icon="arrow-right"
+          icon="arrow-forward"
           iconPosition="end"
           onPress={() => {
             onOpenChat();

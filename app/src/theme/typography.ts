@@ -1,19 +1,13 @@
 import type { TextStyle } from 'react-native';
 
-/**
- * Fraunces: the logo, headings, and the student's own story text.
- * Source Sans 3: everything else.
- */
+/** Plus Jakarta Sans does every job: friendly at display sizes, clean at 15px. */
 export const fontFamily = {
-  serif: 'Fraunces_400Regular',
-  serifItalic: 'Fraunces_400Regular_Italic',
-  serifMedium: 'Fraunces_500Medium',
-  serifSemibold: 'Fraunces_600SemiBold',
-  serifSemiboldItalic: 'Fraunces_600SemiBold_Italic',
-  sans: 'SourceSans3_400Regular',
-  sansItalic: 'SourceSans3_400Regular_Italic',
-  sansSemibold: 'SourceSans3_600SemiBold',
-  sansBold: 'SourceSans3_700Bold',
+  regular: 'PlusJakartaSans_400Regular',
+  italic: 'PlusJakartaSans_400Regular_Italic',
+  medium: 'PlusJakartaSans_500Medium',
+  semibold: 'PlusJakartaSans_600SemiBold',
+  bold: 'PlusJakartaSans_700Bold',
+  extrabold: 'PlusJakartaSans_800ExtraBold',
 } as const;
 
 type Variant = Required<Pick<TextStyle, 'fontFamily' | 'fontSize' | 'lineHeight'>> &
@@ -22,72 +16,25 @@ type Variant = Required<Pick<TextStyle, 'fontFamily' | 'fontSize' | 'lineHeight'
     italicFamily?: string;
   };
 
-/** One type scale for the whole app. Line heights are generous: Fraunces has tall ascenders. */
+/** One type scale for the whole app. */
 export const type = {
-  display: {
-    fontFamily: fontFamily.serifSemibold,
-    italicFamily: fontFamily.serifSemiboldItalic,
-    fontSize: 38,
-    lineHeight: 46,
-    letterSpacing: -0.6,
-  },
-  title1: {
-    fontFamily: fontFamily.serifSemibold,
-    italicFamily: fontFamily.serifSemiboldItalic,
-    fontSize: 30,
-    lineHeight: 38,
-    letterSpacing: -0.4,
-  },
-  title2: {
-    fontFamily: fontFamily.serifSemibold,
-    italicFamily: fontFamily.serifSemiboldItalic,
-    fontSize: 24,
-    lineHeight: 31,
-    letterSpacing: -0.2,
-  },
-  title3: {
-    fontFamily: fontFamily.serifMedium,
-    italicFamily: fontFamily.serifItalic,
-    fontSize: 20,
-    lineHeight: 27,
-  },
+  display: { fontFamily: fontFamily.extrabold, fontSize: 40, lineHeight: 52, letterSpacing: -0.8 },
+  title1: { fontFamily: fontFamily.extrabold, fontSize: 30, lineHeight: 39, letterSpacing: -0.5 },
+  title2: { fontFamily: fontFamily.bold, fontSize: 23, lineHeight: 30, letterSpacing: -0.3 },
+  title3: { fontFamily: fontFamily.bold, fontSize: 18, lineHeight: 25 },
   /** A prompt or a question from the coach. */
-  prompt: {
-    fontFamily: fontFamily.serifItalic,
-    italicFamily: fontFamily.serifItalic,
-    fontSize: 19,
-    lineHeight: 28,
-  },
-  /** The student's story. */
-  story: {
-    fontFamily: fontFamily.serif,
-    italicFamily: fontFamily.serifItalic,
-    fontSize: 18,
-    lineHeight: 29,
-  },
-  headline: { fontFamily: fontFamily.sansSemibold, fontSize: 17, lineHeight: 23 },
-  body: {
-    fontFamily: fontFamily.sans,
-    italicFamily: fontFamily.sansItalic,
-    fontSize: 16,
-    lineHeight: 23,
-  },
-  callout: {
-    fontFamily: fontFamily.sans,
-    italicFamily: fontFamily.sansItalic,
-    fontSize: 15,
-    lineHeight: 21,
-  },
-  label: { fontFamily: fontFamily.sansSemibold, fontSize: 15, lineHeight: 20 },
-  footnote: {
-    fontFamily: fontFamily.sans,
-    italicFamily: fontFamily.sansItalic,
-    fontSize: 13,
-    lineHeight: 18,
-  },
-  /** Small capitals for section labels. Use sparingly. */
+  prompt: { fontFamily: fontFamily.medium, fontSize: 18, lineHeight: 27, italicFamily: fontFamily.italic },
+  /** The student's own writing. */
+  story: { fontFamily: fontFamily.regular, fontSize: 17, lineHeight: 28, italicFamily: fontFamily.italic },
+  headline: { fontFamily: fontFamily.semibold, fontSize: 16, lineHeight: 25 },
+  body: { fontFamily: fontFamily.regular, fontSize: 16, lineHeight: 25, italicFamily: fontFamily.italic },
+  callout: { fontFamily: fontFamily.regular, fontSize: 15, lineHeight: 22, italicFamily: fontFamily.italic },
+  /** Buttons. */
+  label: { fontFamily: fontFamily.bold, fontSize: 15, lineHeight: 20 },
+  footnote: { fontFamily: fontFamily.medium, fontSize: 14, lineHeight: 20, italicFamily: fontFamily.italic },
+  /** Small capitals for section labels. */
   overline: {
-    fontFamily: fontFamily.sansSemibold,
+    fontFamily: fontFamily.bold,
     fontSize: 12,
     lineHeight: 16,
     letterSpacing: 1.2,
@@ -97,10 +44,10 @@ export const type = {
 
 export type TypeVariant = keyof typeof type;
 
-/** Never let a custom size clip: Fraunces' ascenders and italics run tall. */
+/** Never let a custom size clip. */
 export function safeLineHeight(fontSize: number, lineHeight?: number) {
   return Math.max(lineHeight ?? 0, Math.ceil(fontSize * 1.28));
 }
 
-/** Large Dynamic Type sizes are welcome, but past this the layouts stop being a notebook. */
+/** Large Dynamic Type sizes are welcome, but past this the layouts stop working. */
 export const MAX_FONT_SCALE = 1.35;

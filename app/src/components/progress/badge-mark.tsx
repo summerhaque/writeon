@@ -2,18 +2,18 @@ import { StyleSheet, View } from 'react-native';
 import Svg, { Circle, Path, Rect } from 'react-native-svg';
 
 import type { BadgeId } from '@/domain/progress';
-import { hairline } from '@/theme/layout';
+import { shadow } from '@/theme/layout';
 import { useTheme } from '@/theme/use-theme';
 
-const SIZE = 64;
+const SIZE = 68;
 
-/** A badge is a library stamp: a double ring and a small engraved mark. */
+/** An earned badge is an amber medal with a navy mark. A locked one is a dashed outline. */
 export function BadgeMark({ id, earned }: { id: BadgeId; earned: boolean }) {
   const { colors } = useTheme();
-  const color = earned ? colors.ink : colors.faint;
+  const color = earned ? '#12354F' : colors.inkFaint;
   const line = {
     stroke: color,
-    strokeWidth: 1.6,
+    strokeWidth: 1.8,
     strokeLinecap: 'round',
     strokeLinejoin: 'round',
     fill: 'none',
@@ -24,16 +24,18 @@ export function BadgeMark({ id, earned }: { id: BadgeId; earned: boolean }) {
       style={[
         styles.outer,
         earned
-          ? { borderColor: colors.ink, backgroundColor: colors.surface }
-          : { borderColor: colors.faint, borderStyle: 'dashed', opacity: 0.7 },
+          ? { borderColor: colors.accent, backgroundColor: colors.accent, ...shadow.sm }
+          : { borderColor: colors.borderStrong, borderStyle: 'dashed', backgroundColor: colors.surface },
       ]}>
-      {earned && <View style={[styles.inner, { borderColor: colors.ink }]} />}
+      {earned && <View style={styles.inner} />}
       <Svg width={28} height={28} viewBox="0 0 24 24">
         {id === 'first-words' && (
           <>
-            <Path d="M12 2.8 17.6 9 13.3 19.6 12 21.2l-1.3-1.6L6.4 9Z" {...line} />
-            <Path d="M12 13.4v7.6" {...line} />
-            <Circle cx={12} cy={11.6} r={1.5} {...line} />
+            <Path
+              d="M15.2 4.8a2.3 2.3 0 0 1 3.3 0l.7.7a2.3 2.3 0 0 1 0 3.3L8.6 19.4 4 20l.6-4.6Z"
+              {...line}
+            />
+            <Path d="m13.5 6.5 4 4" {...line} />
           </>
         )}
         {id === 'character-builder' && (
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     width: SIZE,
     height: SIZE,
     borderRadius: SIZE / 2,
-    borderWidth: 1.5,
+    borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -108,6 +110,7 @@ const styles = StyleSheet.create({
     right: 4,
     bottom: 4,
     borderRadius: SIZE / 2,
-    borderWidth: hairline * 2,
+    borderWidth: 1.5,
+    borderColor: 'rgba(255, 255, 255, 0.7)',
   },
 });

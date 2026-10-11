@@ -107,7 +107,7 @@ export function WritingStage({ story, edit, flush, reveal }: WritingStageProps) 
         {chapters.length > 1 && (
           <View style={styles.trash}>
             <IconButton
-              icon="trash-2"
+              icon="trash-outline"
               label={`Delete ${chapterTitle(chapter, index)}`}
               tone="muted"
               size={18}
@@ -129,8 +129,8 @@ export function WritingStage({ story, edit, flush, reveal }: WritingStageProps) 
         scrollEnabled
         textAlignVertical="top"
         placeholder="Start anywhere. The middle is fine. So is a single line of dialogue."
-        placeholderTextColor={colors.faint}
-        selectionColor={colors.accent}
+        placeholderTextColor={colors.inkFaint}
+        selectionColor={colors.primary}
         cursorColor={colors.ink}
         autoCapitalize="sentences"
         maxFontSizeMultiplier={MAX_FONT_SCALE}
@@ -159,7 +159,7 @@ export function WritingStage({ story, edit, flush, reveal }: WritingStageProps) 
             styles.trackFill,
             {
               width: `${Math.min(100, (words / goal) * 100)}%`,
-              backgroundColor: words >= goal ? colors.success : colors.ink,
+              backgroundColor: words >= goal ? colors.success : colors.primary,
             },
           ]}
         />
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: space.md,
     paddingTop: space.md,
     paddingBottom: space.md,
-    fontFamily: fontFamily.serif,
+    fontFamily: fontFamily.regular,
     fontSize: type.story.fontSize,
     lineHeight: type.story.lineHeight,
   },

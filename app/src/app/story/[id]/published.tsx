@@ -107,7 +107,7 @@ function Bindery({ story }: { story: Story }) {
           <View style={styles.actions}>
             <Button
               label="Share your book"
-              icon="share"
+              icon="share-outline"
               onPress={() => share(binding.uri)}
               loading={sharing}
               block

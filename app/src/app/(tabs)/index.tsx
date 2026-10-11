@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 
@@ -8,16 +9,20 @@ import { StoryRow } from '@/components/story/story-row';
 import { Button } from '@/components/ui/button';
 import { Screen } from '@/components/ui/screen';
 import { Rule, Section, Surface } from '@/components/ui/surface';
+import { Tappable } from '@/components/ui/tappable';
 import { Text } from '@/components/ui/text';
 import { DAILY_SPARKS } from '@/content/daily-sparks';
-import { currentStreak } from '@/domain/progress';
+import { BADGES, currentStreak, progressTotals } from '@/domain/progress';
 import { GENRES, LENGTHS, STAGE_BY_ID } from '@/domain/stages';
 import { displayTitle, nextStage } from '@/domain/story';
 import type { Story } from '@/domain/types';
+import { formatCount } from '@/domain/words';
 import { formatLongDate, greeting } from '@/lib/dates';
 import { useAppStore } from '@/store/app-store';
-import { usePenName, useStories } from '@/store/selectors';
-import { space } from '@/theme/layout';
+import { usePenName, useProgressInput, useStories } from '@/store/selectors';
+import { radius, space } from '@/theme/layout';
+import { fontFamily } from '@/theme/typography';
+import { useTheme } from '@/theme/use-theme';
 
 const DAY = 24 * 60 * 60 * 1000;
 
@@ -48,6 +53,8 @@ export default function DeskScreen() {
         </Text>
       </View>
 
+      <ProgressStrip />
+
       {current ? <ContinueCard story={current} /> : <EmptyDesk hasBooks={stories.length > 0} />}
 
       <Section label="Today’s spark">
@@ -57,7 +64,7 @@ export default function DeskScreen() {
       {stories.length > 0 && (
         <Section
           label="Your stories"
-          action={<Button label="New story" icon="plus" variant="quiet" size="sm" onPress={startNewStory} />}>
+          action={<Button label="New story" icon="add" variant="quiet" size="sm" onPress={startNewStory} />}>
           {others.length > 0 ? (
             others.map((story, i) => (
               <View key={story.id}>
@@ -74,6 +81,40 @@ export default function DeskScreen() {
         </Section>
       )}
     </Screen>
+  );
+}
+
+/** Words, stories and badges at a glance, in the amber of rewards. Opens the Progress tab. */
+function ProgressStrip() {
+  const { colors } = useTheme();
+  const input = useProgressInput();
+  const totals = progressTotals(input);
+  const badges = BADGES.filter((badge) => badge.earned(input)).length;
+  const items = [
+    { value: formatCount(totals.words), label: 'words written' },
+    {
+      value: formatCount(totals.finished),
+      label: totals.finished === 1 ? 'story completed' : 'stories completed',
+    },
+    { value: formatCount(badges), label: badges === 1 ? 'badge earned' : 'badges earned' },
+  ];
+
+  return (
+    <Tappable
+      accessibilityLabel={`${items.map((item) => `${item.value} ${item.label}`).join(', ')}. Open progress.`}
+      onPress={() => router.navigate('/progress')}
+      pressScale={0.985}
+      style={[styles.strip, { backgroundColor: colors.accentSoft }]}>
+      <Ionicons name="star" size={20} color={colors.accent} />
+      {items.map((item) => (
+        <View key={item.label} style={styles.stripItem}>
+          <Text style={styles.stripValue}>{item.value}</Text>
+          <Text variant="footnote" tone="muted" numberOfLines={1}>
+            {item.label}
+          </Text>
+        </View>
+      ))}
+    </Tappable>
   );
 }
 
@@ -103,7 +144,7 @@ function ContinueCard({ story }: { story: Story }) {
         <StageMeter story={story} />
         <Button
           label={next ? `Continue with ${STAGE_BY_ID[next].name}` : 'Open your story'}
-          icon="arrow-right"
+          icon="arrow-forward"
           iconPosition="end"
           onPress={openNext}
           block
@@ -153,6 +194,17 @@ function SparkCard() {
 
 const styles = StyleSheet.create({
   head: { gap: space.xxs, paddingTop: space.lg },
+  strip: {
+    marginTop: space.lg,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: space.sm,
+    paddingVertical: space.md,
+    paddingHorizontal: space.md,
+    borderRadius: radius.lg,
+  },
+  stripItem: { flex: 1 },
+  stripValue: { fontFamily: fontFamily.extrabold, fontSize: 20, lineHeight: 26 },
   continue: { gap: space.lg },
   continueTop: { flexDirection: 'row', gap: space.md },
   continueText: { flex: 1, gap: space.xxs, justifyContent: 'center' },

@@ -1,4 +1,4 @@
-import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 
@@ -52,9 +52,9 @@ export function RevisingStage({ story, edit, flush }: StageProps) {
                     styles.box,
                     done
                       ? { backgroundColor: colors.primary, borderColor: colors.primary }
-                      : { borderColor: colors.faint },
+                      : { borderColor: colors.inkFaint },
                   ]}>
-                  {done && <Feather name="check" size={15} color={colors.onPrimary} />}
+                  {done && <Ionicons name="checkmark" size={15} color={colors.primaryOn} />}
                 </View>
                 <View style={styles.checkText}>
                   <Text variant="headline" tone={done ? 'muted' : 'ink'}>
@@ -84,7 +84,7 @@ export function RevisingStage({ story, edit, flush }: StageProps) {
                 {LESSON_BY_ID[id].tagline}
               </Text>
             </View>
-            <Feather name="chevron-right" size={20} color={colors.faint} />
+            <Ionicons name="chevron-forward" size={20} color={colors.inkFaint} />
           </Tappable>
         ))}
       </Section>

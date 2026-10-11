@@ -201,7 +201,10 @@ export function PlotStage({ story, edit, flush }: StageProps) {
           <View key={beat.key} style={styles.beat}>
             <View style={styles.beatRail}>
               <View
-                style={[styles.beatDot, { borderColor: plot[beat.key].trim() ? colors.ink : colors.faint }]}>
+                style={[
+                  styles.beatDot,
+                  { borderColor: plot[beat.key].trim() ? colors.primary : colors.borderStrong },
+                ]}>
                 <Text variant="footnote" tone={plot[beat.key].trim() ? 'ink' : 'muted'}>
                   {i + 1}
                 </Text>

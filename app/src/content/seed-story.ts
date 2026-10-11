@@ -44,7 +44,7 @@ export const SEED_STORY: SeedStoryContent = {
         wants: 'Shiny things. Also for Mira to stop fibbing so everyone can get some sleep.',
         fears: 'Cats. And the Mason, but she won’t talk about him.',
         detail:
-          'A jackdaw with one white feather on her head. She can only say things that are true, even when nobody wants to hear them.',
+          'A jackdaw with one white streak on her head. She can only say things that are true, even when nobody wants to hear them.',
       },
     ],
     characterNotes: '',
@@ -98,5 +98,116 @@ export const SEED_STORY: SeedStoryContent = {
     publishing: { about: '', dedication: '' },
   },
   completed: ['idea', 'characters'],
-  cover: { template: 'classic', color: 'sea', plateId: 'tower' },
+  cover: { template: 'classic', color: 'indigo', plateId: 'tower' },
+};
+
+/** A short book the demo writer has already finished and published, so the shelf isn't empty. */
+export const SEED_PUBLISHED: SeedStoryContent = {
+  title: 'Mr. Whiskers for President',
+  genre: 'comedy',
+  spark: 'what-if',
+  feeling: 'laughing',
+  length: 'short',
+  work: {
+    idea: {
+      whatIf: 'What if the class hamster ran for class president, and won?',
+      pitch:
+        'This is a story about Mr. Whiskers, the class hamster, who wants to be president of Room 12 but has never given a speech.',
+      why: 'Our class votes for everything, even the snack. I wanted to write about the smallest candidate ever.',
+      notes: '',
+    },
+    characters: [
+      {
+        id: 'p-1',
+        name: 'Mr. Whiskers',
+        role: 'protagonist',
+        wants: 'A bigger wheel, and for everyone to finally listen to him.',
+        fears: 'The vacuum cleaner, and speaking in front of people.',
+        detail:
+          'He stuffs his cheeks when he is nervous, so he always looks like he is about to say something.',
+      },
+      {
+        id: 'p-2',
+        name: 'Brianna Coldwell',
+        role: 'antagonist',
+        wants: 'To be class president for the third year in a row.',
+        fears: 'Losing to anybody, but especially a hamster.',
+        detail: 'She carries a clipboard everywhere, even to lunch.',
+      },
+    ],
+    characterNotes: '',
+    setting: {
+      place: 'Room 12 at Pinecrest Elementary',
+      time: 'Election week, in October',
+      see: 'Posters taped crooked on every wall, and a cage by the window with a very small podium in it.',
+      hear: 'Twenty-six kids talking at once, and a squeaky wheel that never stops.',
+      smell: 'Cedar shavings, glue sticks and somebody’s tuna sandwich.',
+      special: 'The cage is right next to the ballot box.',
+      notes: '',
+    },
+    conflict: {
+      obstacle: 'Brianna has won every election, and Mr. Whiskers cannot talk.',
+      kind: 'person',
+      stakes: 'If he loses, the class votes to replace his wheel with a smaller one.',
+      notes: '',
+    },
+    plot: {
+      beginning: 'Room 12 announces class elections. Somebody writes Mr. Whiskers on the ballot as a joke.',
+      problem: 'The joke catches on, and Brianna takes it very seriously.',
+      rising:
+        'Brianna gives a long speech about snack rules. Mr. Whiskers just runs on his wheel. Everyone loves it.',
+      climax: 'At the big debate, Mr. Whiskers escapes and runs straight across the ballot box.',
+      ending: 'He wins by three votes, and his first act as president is a longer recess.',
+      notes: '',
+    },
+    chapters: [
+      {
+        id: 'p-ch-1',
+        title: 'The Joke',
+        body:
+          'It started as a joke. When Ms. Ortiz passed out the ballots for class president, somebody wrote MR. WHISKERS in big letters at the bottom.\n\n' +
+          'Mr. Whiskers is our hamster. He is brown and white and shaped like a dinner roll.\n\n' +
+          '“Very funny,” said Brianna Coldwell, who has been class president since second grade. She clicked her pen twice, which is what she does instead of rolling her eyes.\n\n' +
+          'But by lunch, everybody was talking about it. Somebody made a poster that said WHISKERS: SMALL PAWS, BIG IDEAS. Somebody else made a button out of a bottle cap.\n\n' +
+          'Mr. Whiskers stuffed his cheeks so full he looked like he was about to give a speech.',
+      },
+      {
+        id: 'p-ch-2',
+        title: 'The Debate',
+        body:
+          'Brianna’s speech was eleven minutes long. It had three parts and a chart about snacks.\n\n' +
+          'When it was Mr. Whiskers’ turn, Ms. Ortiz put his cage on the desk. The room went so quiet you could hear the clock thinking.\n\n' +
+          'Mr. Whiskers looked at all of us. Then he climbed onto his wheel and ran. He ran so fast the wheel sang. Somebody started clapping, and then everybody was clapping, even Ms. Ortiz.\n\n' +
+          'He won by three votes. His first act as president was a longer recess. Brianna said that was not a real law, but she stayed outside for all of it.',
+      },
+    ],
+    revising: {
+      checks: {
+        'read-aloud': true,
+        'strong-start': true,
+        'show-dont-tell': true,
+        senses: true,
+        dialogue: true,
+        'cut-repeats': true,
+        spelling: true,
+      },
+      notes: '',
+    },
+    illustrations: [
+      {
+        id: 'p-pic-1',
+        source: 'plate',
+        plateId: 'birthday-cake',
+        uri: null,
+        caption: 'The victory cake. It was taller than the president.',
+        chapterId: 'p-ch-2',
+      },
+    ],
+    publishing: {
+      about: 'The author is a writer in Room 12 who has never met a hamster they didn’t like.',
+      dedication: 'For Mr. Whiskers, who would have won anyway.',
+    },
+  },
+  completed: ['idea', 'characters', 'setting', 'conflict', 'plot', 'writing', 'revising', 'illustrating'],
+  cover: { template: 'plate', color: 'amber', plateId: 'birthday-cake' },
 };

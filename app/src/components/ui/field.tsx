@@ -10,7 +10,7 @@ import { Text } from './text';
 export interface FieldProps extends Omit<TextInputProps, 'style' | 'multiline'> {
   label?: string;
   hint?: string;
-  /** Set in Fraunces: this is the writer's story, not a form. */
+  /** The writer's own story, not a form field: set a little larger. */
   story?: boolean;
   /** Grow with the text, starting at this many lines. */
   lines?: number;
@@ -35,8 +35,8 @@ export function Field({ label, hint, story = false, lines = 1, onFocus, onBlur, 
         accessibilityLabel={label}
         accessibilityHint={hint}
         maxFontSizeMultiplier={MAX_FONT_SCALE}
-        placeholderTextColor={colors.faint}
-        selectionColor={colors.accent}
+        placeholderTextColor={colors.inkFaint}
+        selectionColor={colors.primary}
         cursorColor={colors.ink}
         multiline={multiline}
         textAlignVertical={multiline ? 'top' : 'center'}
@@ -54,12 +54,14 @@ export function Field({ label, hint, story = false, lines = 1, onFocus, onBlur, 
           styles.input,
           {
             minHeight,
-            fontFamily: story ? fontFamily.serif : fontFamily.sans,
+            fontFamily: fontFamily.regular,
             fontSize: text.fontSize,
             lineHeight: multiline ? text.lineHeight : undefined,
             color: colors.ink,
             backgroundColor: colors.surface,
-            borderColor: focused ? colors.ink : colors.border,
+            borderColor: focused ? colors.primary : colors.borderStrong,
+            borderWidth: focused ? 2 : hairline * 3,
+            paddingHorizontal: focused ? space.md - 1 : space.md,
           },
         ]}
       />
@@ -70,9 +72,7 @@ export function Field({ label, hint, story = false, lines = 1, onFocus, onBlur, 
 const styles = StyleSheet.create({
   wrap: { gap: space.xs },
   input: {
-    borderWidth: hairline * 2,
     borderRadius: radius.md,
-    paddingHorizontal: space.md,
     paddingTop: space.sm + 2,
     paddingBottom: space.sm + 2,
   },

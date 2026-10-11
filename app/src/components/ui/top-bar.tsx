@@ -27,7 +27,7 @@ export function TopBar({ title, leading = 'back', onLeadingPress, trailing }: To
       <View style={styles.side}>
         {leading !== 'none' && (
           <IconButton
-            icon={leading === 'back' ? 'chevron-left' : 'x'}
+            icon={leading === 'back' ? 'chevron-back' : 'close'}
             label={leading === 'back' ? 'Back' : 'Close'}
             size={leading === 'back' ? 26 : 22}
             onPress={onLeadingPress ?? (() => goBackOr())}

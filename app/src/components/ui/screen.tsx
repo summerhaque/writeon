@@ -56,13 +56,12 @@ export function Screen({
   );
 
   return (
-    <SafeAreaView edges={edges} style={[styles.fill, { backgroundColor: colors.background }]}>
+    <SafeAreaView edges={edges} style={[styles.fill, { backgroundColor: colors.bg }]}>
       {header}
       <KeyboardAvoidingView style={styles.fill} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         {body}
         {footer ? (
-          <View
-            style={[styles.footer, { borderTopColor: colors.border, backgroundColor: colors.background }]}>
+          <View style={[styles.footer, { borderTopColor: colors.border, backgroundColor: colors.bg }]}>
             <View style={styles.footerInner}>{footer}</View>
           </View>
         ) : null}

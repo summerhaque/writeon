@@ -1,8 +1,8 @@
-import { Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { ActivityIndicator, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { haptics } from '@/lib/haptics';
-import { hairline, radius, space } from '@/theme/layout';
+import { hairline, radius, shadow, space } from '@/theme/layout';
 import { fontFamily } from '@/theme/typography';
 import { useTheme } from '@/theme/use-theme';
 
@@ -17,7 +17,7 @@ export interface ButtonProps {
   onPress: () => void;
   variant?: Variant;
   size?: Size;
-  icon?: keyof typeof Feather.glyphMap;
+  icon?: keyof typeof Ionicons.glyphMap;
   iconPosition?: 'start' | 'end';
   disabled?: boolean;
   loading?: boolean;
@@ -47,19 +47,23 @@ export function Button({
   const inactive = disabled || loading;
 
   const surface: Record<Variant, ViewStyle> = {
-    primary: { backgroundColor: colors.primary },
-    accent: { backgroundColor: colors.accent },
-    secondary: { borderWidth: hairline * 2, borderColor: colors.ink },
+    primary: { backgroundColor: colors.primary, ...shadow.sm },
+    accent: { backgroundColor: colors.accent, ...shadow.sm },
+    secondary: {
+      backgroundColor: colors.surface,
+      borderWidth: hairline * 3,
+      borderColor: colors.borderStrong,
+    },
     quiet: {},
   };
   const textColor: Record<Variant, string> = {
-    primary: colors.onPrimary,
-    accent: colors.onAccent,
-    secondary: colors.ink,
-    quiet: colors.ink,
+    primary: colors.primaryOn,
+    accent: colors.accentOn,
+    secondary: colors.primary,
+    quiet: colors.primary,
   };
   const color = textColor[variant];
-  const iconNode = icon ? <Feather name={icon} size={size === 'sm' ? 16 : 18} color={color} /> : null;
+  const iconNode = icon ? <Ionicons name={icon} size={size === 'sm' ? 16 : 18} color={color} /> : null;
 
   return (
     <Tappable
@@ -75,7 +79,6 @@ export function Button({
       style={[
         styles.base,
         { height: HEIGHT[size], paddingHorizontal: variant === 'quiet' ? space.xs : PADDING[size] },
-        size === 'sm' && { borderRadius: radius.sm },
         surface[variant],
         block && styles.block,
         inactive && !loading && styles.disabled,
@@ -103,11 +106,11 @@ const styles = StyleSheet.create({
   base: {
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: radius.md,
+    borderRadius: radius.pill,
     alignSelf: 'flex-start',
   },
   block: { alignSelf: 'stretch' },
   content: { flexDirection: 'row', alignItems: 'center', gap: space.xs },
   disabled: { opacity: 0.38 },
-  smallLabel: { fontFamily: fontFamily.sansSemibold },
+  smallLabel: { fontFamily: fontFamily.bold },
 });
