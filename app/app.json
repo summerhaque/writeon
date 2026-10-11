@@ -1,0 +1,61 @@
+{
+  "expo": {
+    "name": "Write On!",
+    "slug": "writeon",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "writeon",
+    "userInterfaceStyle": "automatic",
+    "backgroundColor": "#FAF7F1",
+    "ios": {
+      "bundleIdentifier": "app.writeon.studio",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Write On! uses the camera so you can add a photo of your own drawing to your book.",
+        "NSPhotoLibraryUsageDescription": "Write On! opens your photos so you can add a picture of your own drawing to your book."
+      }
+    },
+    "android": {
+      "package": "app.writeon.studio",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1B1E2B"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#FAF7F1",
+          "dark": {
+            "image": "./assets/splash-icon-dark.png",
+            "backgroundColor": "#111319"
+          }
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Write On! opens your photos so you can add a picture of your own drawing to your book.",
+          "cameraPermission": "Write On! uses the camera so you can add a photo of your own drawing to your book."
+        }
+      ],
+      "expo-sharing",
+      "expo-asset"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}

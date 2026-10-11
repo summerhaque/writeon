@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><title>Write On!</title><rect width="64" height="64" rx="14.08" fill="#1B1E2B"/><g transform="rotate(38 32.0 32.0)"><g transform="translate(23.25 -1.64) scale(0.1251)" fill="none" stroke-linecap="round">
+  <path d="M118,22 L118,336 C118,368 98,390 66,410 C34,390 22,368 22,336 L22,172 C22,94 62,46 118,22 Z" fill="#FAF7F1"/>
+  <path d="M22,184 C46,150 80,130 118,120" stroke="#1B1E2B" stroke-width="26"/>
+  <path d="M22,288 C46,254 80,234 118,224" stroke="#1B1E2B" stroke-width="26"/>
+  <path d="M66,396 C66,364 72,336 90,318 C100,308 109,304 118,302" stroke="#1B1E2B" stroke-width="20.3"/>
+  <path d="M118,22 L118,336 C118,368 98,390 66,410 C34,390 22,368 22,336 L22,172 C22,94 62,46 118,22 Z" stroke="#1B1E2B" stroke-width="26" stroke-linejoin="miter" stroke-miterlimit="6"/>
+  <path d="M66,410 L66,466" stroke="#FAF7F1" stroke-width="26" stroke-linecap="butt"/>
+  <path d="M54,476 L78,476 L66,520 Z" fill="#EE7B5F" stroke="#EE7B5F" stroke-width="2.5" stroke-linejoin="round"/>
+</g></g></svg>
