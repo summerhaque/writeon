@@ -56,7 +56,7 @@ export type AppState = PersistedState & Actions;
 
 const initialState: PersistedState = {
   profile: null,
-  appearance: 'system',
+  appearance: 'light',
   stories: {},
   activity: {},
   lessonsDone: {},
@@ -131,7 +131,14 @@ export const useAppStore = create<AppState>()(
     }),
     {
       name: 'writeon/v1',
-      version: 1,
+      // v2: light became the default. Anyone still on "follow the device" moves to light;
+      // an explicit dark choice is kept.
+      version: 2,
+      migrate: (persisted, version) => {
+        const state = persisted as PersistedState;
+        if (version < 2 && state.appearance === 'system') return { ...state, appearance: 'light' };
+        return state;
+      },
       storage: createJSONStorage(() => AsyncStorage),
       partialize: ({ profile, appearance, stories, activity, lessonsDone }): PersistedState => ({
         profile,

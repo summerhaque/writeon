@@ -1,7 +1,5 @@
 # Write On! · Demo video script
 
-> **Replace this with Summer's latest ~3-minute script once it's in hand.** This draft was written before the brand and copy revamp. Its facts are now corrected: the real app is built with React on Base44 and calls an AI model for the coach. The click path below follows the Expo demo build.
-
 **Length:** about 2:45. CAC requires 1 to 3 minutes, so don't go over.
 **Format:** a screen recording of the app, with Summer's voiceover. A few seconds of Summer on camera at the start and end is a nice touch, but optional.
 **Upload:** YouTube or Vimeo, set to **Public**.
@@ -38,7 +36,7 @@ The rules require the video to cover six things. Each is marked below where it h
 | 2:10 | **Publishing**: change the cover color, then tap **Publish my book**. Let the stamp land. | "Then you design a cover, and publish." |
 | 2:18 | The "Published." screen. Tap **Share your book** and show the PDF for a second. | "Write On! turns the story into a real PDF book, with a title page, chapters, pictures and an About the Author page." |
 | 2:26 | Tap **See it on your shelf**, then the **Progress** tab: the ledger and badges. | "It lands on your shelf next to sample books by other young writers, and you can see your progress: words, streaks and badges." |
-| 2:36 | Optional: Summer on camera. Otherwise, the welcome screen. | "I built Write On! in React on Base44, an AI-assisted platform, with JavaScript and TypeScript. The coach calls an AI model with prompts I engineered to give hints, not answers, and the PDF books are made with jsPDF ⑤. **[Say what AI tools you used and how, to match your written disclosure.]** Everyone has a story worth telling, and every voice deserves the chance to be heard. Thanks for watching." |
+| 2:36 | Optional: Summer on camera. Otherwise, the welcome screen. | "I built Write On! in React on Base44, an AI-assisted platform, with JavaScript and TypeScript. The coach calls an AI model with prompts I engineered to give hints, not answers, and the PDF books are made with jsPDF ⑤. I worked with a lot of AI tools along the way, ChatGPT, Base44 and then Claude, and spent most of my time on the prompt engineering and filtering that keep the coach giving hints, not answers. Everyone has a story worth telling, and every voice deserves the chance to be heard. Thanks for watching." |
 | 2:50 | End. | |
 
 ⑥ The app working is covered from 0:20 to 2:30.

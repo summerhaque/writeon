@@ -45,10 +45,10 @@ Checks: `npx tsc --noEmit` and `npx expo export --platform ios`.
 cd website && python3 -m http.server 4601
 ```
 
-It's a single page, light by default, with dark mode following the system. The coach demo is labelled as a canned demo of the real coach. It plays the app's Characters-stage script (`assets/js/coach-data.js`, generated from `app/src/content/coach.ts`).
+It's a single page, light by default. A toggle in the nav switches to dark, and the choice is remembered. The coach demo is labelled as a canned demo of the real coach. It plays the app's Characters-stage script (`assets/js/coach-data.js`, generated from `app/src/content/coach.ts`).
 
 **Deploy (Render, static site):** leave Build Command empty and set Publish Directory to `website`, with no environment variables. If the site looks unstyled after a deploy, use Manual Deploy → Clear build cache & deploy, then hard-refresh.
 
 ## CAC
 
-`docs/cac/` has the draft answers, the video script and `cover.jpg` (600×800). `cover.html` and `og-image.html` are the sources for the cover and the website's social image. Read the AI-disclosure section in `answers.md` before submitting.
+`docs/cac/` has the answers, the video script and `cover.jpg` (600×800). `cover.html` and `og-image.html` are the sources for the cover and the website's social image. Read the AI-disclosure section in `answers.md` before submitting.

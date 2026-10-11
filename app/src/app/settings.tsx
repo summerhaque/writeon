@@ -16,9 +16,9 @@ import { useStories } from '@/store/selectors';
 import { space } from '@/theme/layout';
 
 const APPEARANCES: { id: AppearancePreference; label: string }[] = [
-  { id: 'system', label: 'System' },
   { id: 'light', label: 'Light' },
   { id: 'dark', label: 'Dark' },
+  { id: 'system', label: 'Match device' },
 ];
 
 export default function SettingsScreen() {

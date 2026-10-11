@@ -24,6 +24,26 @@
     if (event.key === 'Escape') setMenu(false);
   });
 
+  // ------------------------------------------------------------ Theme: light unless the visitor picks dark
+
+  var themeToggle = document.querySelector('[data-theme-toggle]');
+  var themeMeta = document.querySelector('meta[name="theme-color"]');
+
+  function applyTheme(theme) {
+    var dark = theme === 'dark';
+    if (dark) document.documentElement.dataset.theme = 'dark';
+    else delete document.documentElement.dataset.theme;
+    themeToggle.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+    themeMeta.setAttribute('content', dark ? '#0D1B2A' : '#F4F9FD');
+  }
+
+  applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+  themeToggle.addEventListener('click', function () {
+    var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem('writeon-theme', next); } catch (e) { /* private mode: the choice lasts for this visit */ }
+  });
+
   // The hero is light, so the nav starts clear; once the page moves it gets a white surface.
   function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 8); }
   window.addEventListener('scroll', onScroll, { passive: true });

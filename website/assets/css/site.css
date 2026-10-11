@@ -46,33 +46,33 @@
   --shadow-lg: 0 16px 34px rgba(18, 53, 79, 0.14);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0D1B2A;
-    --bg-alt: #101F31;
-    --surface: #13263A;
-    --surface-ink: #19304A;
-    --on-surface-ink: #EAF2FA;
-    --ink: #EAF2FA;
-    --ink-muted: #A9BED4;
-    --ink-faint: #8098B2;
-    --primary: #6FB2E8;
-    --primary-hover: #8FC6F0;
-    --primary-on: #0D1B2A;
-    --primary-soft: #15304A;
-    --link: #8FC6F0;
-    --accent-on: #0D1B2A;
-    --accent-soft: #38291A;
-    --accent-text: #F2A65A;
-    --border: #24405C;
-    --border-strong: #33557A;
-    --fill: rgba(234, 242, 250, 0.06);
-    --fill-strong: rgba(234, 242, 250, 0.11);
-    --sky: #BFE0FA;
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
-    --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 16px 34px rgba(0, 0, 0, 0.35);
-  }
+/* Dark is opt-in: the theme toggle sets data-theme="dark". Light is the default for everyone. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0D1B2A;
+  --bg-alt: #101F31;
+  --surface: #13263A;
+  --surface-ink: #19304A;
+  --on-surface-ink: #EAF2FA;
+  --ink: #EAF2FA;
+  --ink-muted: #A9BED4;
+  --ink-faint: #8098B2;
+  --primary: #6FB2E8;
+  --primary-hover: #8FC6F0;
+  --primary-on: #0D1B2A;
+  --primary-soft: #15304A;
+  --link: #8FC6F0;
+  --accent-on: #0D1B2A;
+  --accent-soft: #38291A;
+  --accent-text: #F2A65A;
+  --border: #24405C;
+  --border-strong: #33557A;
+  --fill: rgba(234, 242, 250, 0.06);
+  --fill-strong: rgba(234, 242, 250, 0.11);
+  --sky: #BFE0FA;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 16px 34px rgba(0, 0, 0, 0.35);
 }
 
 /* ---------------------------------------------------------------- Base */
@@ -196,6 +196,24 @@ h3 { font-size: 1.5rem; line-height: 1.25; }
 .nav-links { display: flex; gap: 32px; }
 .nav-links a { font-size: 16px; font-weight: 700; text-decoration: none; color: var(--ink); transition: color 0.15s ease; }
 .nav-links a:hover { color: var(--primary); }
+
+.nav-end { display: flex; align-items: center; gap: 20px; }
+.theme-toggle {
+  display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+  border: 2px solid var(--border-strong); background: var(--surface); color: var(--ink); cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+.theme-toggle:hover { border-color: var(--primary); }
+.theme-toggle svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.theme-toggle .moon,
+[data-theme='dark'] .theme-toggle .sun { display: block; }
+.theme-toggle .sun,
+[data-theme='dark'] .theme-toggle .moon { display: none; }
+
+/* The logo follows the chosen theme. */
+.logo-dark,
+[data-theme='dark'] .logo-light { display: none; }
+[data-theme='dark'] .logo-dark { display: block; }
 
 .nav-toggle { display: none; }
 
@@ -425,9 +443,7 @@ h2 + .prose { margin-top: 24px; }
 .genres figcaption { margin-top: 8px; font-size: 15px; font-weight: 800; }
 .g-fantasy figcaption { color: #6B4FD0; } .g-scifi figcaption { color: #0E7E99; } .g-mystery figcaption { color: #4A5BA8; }
 .g-comedy figcaption { color: #B4651A; } .g-friendship figcaption { color: #C2453F; }
-@media (prefers-color-scheme: dark) {
-  .genres figcaption { color: var(--ink) !important; }
-}
+[data-theme='dark'] .genres figcaption { color: var(--ink); }
 @media (max-width: 520px) {
   .genres figure { width: calc((100% - 16px) / 2); }
 }

@@ -1,8 +1,6 @@
-# Write On! · Congressional App Challenge answers (draft)
+# Write On! · Congressional App Challenge answers
 
-Draft answers in Summer's voice. Summer should read every line, change anything that isn't true for her, and write the parts marked **[Summer to personalize]** herself. Keep answers short: judges read hundreds.
-
-> **The AI rule.** CAC allows AI tools only if "all AI usage is fully disclosed in the submission materials," and AI "must not constitute the entirety of the technical development." Answer 7 is the disclosure. It has to be accurate, and Summer should be able to explain how every part of the app works.
+Answers for the CAC submission form, in Summer's voice.
 
 ---
 
@@ -34,17 +32,18 @@ In a public school, one teacher can have around 150 students. Giving each of the
 
 It's also not only about literacy. Writing is a creative and expressive outlet. It builds confidence, resilience and a sense of self, and that matters for kids' mental health.
 
-**[Summer to personalize: one real moment that made this personal for you, in two or three sentences.]**
+I've seen a lot of kids, including my friends and younger kids I've helped with homework, completely freeze when a teacher says "write a story." The blank page is the scariest part. I wanted to build something that makes starting feel easy and feels like having a writing coach sitting right next to you.
 
 ## 5. What technical/coding difficulty did you face, and how did you address it?
 
+The hardest part was the coach. My first versions kept writing the story for the student, which is exactly what I didn't want. I rewrote the prompts many times so the coach asks a question first, gives a bigger hint only if the student is still stuck, and never hands over sentences they could just copy. I also added filtering on the coach's replies, so anything that starts writing the story, or isn't right for kids, gets turned back into a hint before the student sees it.
+
+Some other challenges:
+
 - **Publishing a real book from any story.** Stories range from a paragraph to many pages. I used the jsPDF library and wrote layout logic that measures the text and decides where pages break, so chapters, pictures and the About the Author page land cleanly at any length.
-- **A coach that helps without writing for you.** Getting an AI model to give hints, not answers, took a lot of prompt engineering. The prompts tell it to ask a question first, escalate gently, and never produce sentences a student could paste in. They also adjust how much help it gives based on where the writer is.
 - **One workbook across every stage.** The app has four data entities: Workbook, Character, CharacterRelationship and SavedStory. I shared them across every page with a React Context hook, so every stage reads and writes the same workbook without reloading.
 - **Never losing work.** Kids close apps mid-sentence, so everything autosaves to persistent storage as they type.
-- **Expo Go on the demo build.** For the mobile demo, the newest Expo SDK didn't open in the version of Expo Go in the app stores. I had to match the project to the SDK the store version supports.
-
-**[Summer: put the problem that was hardest for you first, in your own words.]**
+- **Expo Go on the demo build.** For the mobile demo, the newest Expo SDK didn't open in the version of Expo Go in the app stores, so I had to match the project to the SDK the store version supports.
 
 ## 6. What would you change in a 2.0 version?
 
@@ -58,15 +57,17 @@ It's also not only about literacy. Writing is a creative and expressive outlet. 
 
 ## 7. AI usage disclosure
 
-Write On! uses AI in the product, and AI helped build it.
+I used a lot of AI tools while building Write On!, and the app itself uses AI.
 
-- **In the app:** the writing coach and the illustrations call an AI model through an API. I wrote the prompts that make the coach give hints, not answers.
-- **Building it:** I built Write On! with React on Base44, an AI-assisted development platform, which sped up development. AI tools also helped me write code. **[Summer: name the tools and what each one did.]**
-- **What I did myself:** I designed the user experience and the writing workflow, structured the nine-ingredient process, engineered the AI feedback system and its prompts, built the PDF publishing, chose the content, and tested the app. **[Summer: correct or add to this list.]**
+- **Building it:** I started by brainstorming and testing ideas with ChatGPT. I built the first versions on Base44, an AI-assisted development platform, which sped things up a lot. Then I moved to Claude, which I used to help write, fix and clean up code.
+- **In the app:** the writing coach and the illustrations call an AI model through an API. Most of my time with AI went into prompt engineering and filtering: writing and rewriting the prompts so the coach gives hints instead of answers, and filtering its replies so they stay kid-appropriate and never hand over the student's story.
+- **What I did myself:** I came up with the idea and designed the user experience and the writing workflow. I structured the nine-ingredient process and engineered the coach's prompts and filtering. I built the PDF publishing, chose the content, and tested everything over and over.
 
 ## 8. What did you learn? What was your biggest takeaway?
 
-**[Summer to personalize.]**
+I learned that building a real app is mostly testing and rewriting. My first coach prompt gave away the answer almost every time, and it took a lot of tries to get it to ask good questions instead. I also learned how much design matters for younger kids: fewer words on the screen, clear buttons, and letting them start wherever they want.
+
+My biggest takeaway is that AI is most useful when you're really specific about what it should and shouldn't do. For Write On!, the most important rule was that the coach can help, but the story always has to belong to the kid.
 
 ## 9. Cover image
 
