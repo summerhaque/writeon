@@ -22,7 +22,7 @@ export interface OwnSentence {
   text: string;
 }
 
-/** Sentences from the writer's chapters that are worth practising on. */
+/** Sentences from the writer's chapters that are worth practicing on. */
 export function ownSentences(stories: Story[]): OwnSentence[] {
   return stories.flatMap((story) =>
     story.work.chapters.flatMap((chapter) =>

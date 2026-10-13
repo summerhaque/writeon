@@ -29,7 +29,7 @@ import { space } from '@/theme/layout';
 
 type Step = 'learn' | 'pick' | 'rewrite' | 'compare';
 
-/** A sentence to practise on: one of the writer's own, or a practice line. */
+/** A sentence to practice on: one of the writer's own, or a practice line. */
 type Picked = { text: string; source: OwnSentence | null };
 
 export default function LessonScreen() {
@@ -143,7 +143,7 @@ function LessonFlow({ lesson, storyId }: { lesson: Lesson; storyId?: string }) {
               <Text variant="body" tone="muted">
                 {sentences.length > 0
                   ? 'Choose one of yours. Plain ones work best: they have the most room to grow.'
-                  : 'You haven’t written any chapters yet, so practise on one of these. Next time, use your own.'}
+                  : 'You haven’t written any chapters yet, so practice on one of these. Next time, use your own.'}
               </Text>
             </View>
             {sentences.length > 0
@@ -159,7 +159,7 @@ function LessonFlow({ lesson, storyId }: { lesson: Lesson; storyId?: string }) {
                   <SentenceCard key={text} text={text} onPress={() => choose({ text, source: null })} />
                 ))}
             {sentences.length > 0 && (
-              <Section label="Or practise on one of these">
+              <Section label="Or practice on one of these">
                 {lesson.practiceSentences.slice(0, 2).map((text) => (
                   <SentenceCard key={text} text={text} onPress={() => choose({ text, source: null })} />
                 ))}

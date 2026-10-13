@@ -5,7 +5,7 @@ import { makeId } from './ids';
 
 export type DrawingResult =
   | { status: 'picked'; uri: string }
-  | { status: 'cancelled' }
+  | { status: 'canceled' }
   | { status: 'denied' }
   | { status: 'unavailable' };
 
@@ -29,7 +29,7 @@ export async function pickDrawing(source: 'camera' | 'library'): Promise<Drawing
       source === 'camera'
         ? await ImagePicker.launchCameraAsync(options)
         : await ImagePicker.launchImageLibraryAsync(options);
-    if (result.canceled || !result.assets[0]) return { status: 'cancelled' };
+    if (result.canceled || !result.assets[0]) return { status: 'canceled' };
 
     const picked = new File(result.assets[0].uri);
     const folder = new Directory(Paths.document, 'drawings');

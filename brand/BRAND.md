@@ -66,7 +66,7 @@ Contrast checks: navy on the page is 12.0:1, muted text 5.7:1, white on primary 
 
 **Genres:** Fantasy `#6B4FD0`, Sci-Fi `#0E7E99`, Mystery `#4A5BA8`, Comedy `#B4651A`, Friendship `#C2453F`. Each also has a soft tint for backgrounds.
 
-**The nine stages** use one blue ramp, from `#C9E5FB` (Idea) to `#1F6FB2` (Publishing). Done stages fill solid, the current stage gets a 3px amber ring, and later stages are outlines. Never grey a stage out so hard that it looks locked: any stage can be opened.
+**The nine stages** use one blue ramp, from `#C9E5FB` (Idea) to `#1F6FB2` (Publishing). Done stages fill solid, the current stage gets a 3px amber ring, and later stages are outlines. Never gray a stage out so hard that it looks locked: any stage can be opened.
 
 ## Type
 

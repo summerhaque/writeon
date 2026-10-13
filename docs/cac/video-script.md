@@ -13,7 +13,7 @@ The rules require the video to cover six things. Each is marked below where it h
 
 - In the app, go to **Progress → Settings → Erase everything and start over**, then sign in with the pen name **Summer**. That puts the demo story, *The Tower of Fibs*, on the desk.
 - Use light mode, turn on Do Not Disturb, and charge the phone. On a Mac you can record the simulator with `xcrun simctl io booted recordVideo writeon-demo.mp4`.
-- Practise the taps once. Don't rush them: judges need to see what happens.
+- Practice the taps once. Don't rush them: judges need to see what happens.
 
 ---
 

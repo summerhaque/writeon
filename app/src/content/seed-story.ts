@@ -35,7 +35,7 @@ export const SEED_STORY: SeedStoryContent = {
         wants: 'To build the tower all the way to the moon, then climb up and carry it off in a sack.',
         fears: 'The truth said out loud. It turns his stones to sand.',
         detail:
-          'He is tall and grey, like he’s made of dust, and he hums while he works. His trowel scrapes like chalk on a board.',
+          'He is tall and gray, like he’s made of dust, and he hums while he works. His trowel scrapes like chalk on a board.',
       },
       {
         id: 'c-3',
@@ -52,7 +52,7 @@ export const SEED_STORY: SeedStoryContent = {
       place:
         'Hollin Hill, the small town Mira just moved to. The tower is on the hill behind her new house, and only she can see it.',
       time: 'Now, at the start of October. The tower parts all happen at night, after everyone is asleep.',
-      see: 'A crooked grey tower, and every stone has a lie scratched into it in Mira’s handwriting. The moon is huge and very close, like it’s leaning down to look.',
+      see: 'A crooked gray tower, and every stone has a lie scratched into it in Mira’s handwriting. The moon is huge and very close, like it’s leaning down to look.',
       hear: 'Wind whistling through the gaps in the stones. The Mason humming. The scrape of his trowel. Dot tapping on the window with her beak.',
       smell: '',
       special: '',
